@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" href="data:,">
+<title>Reel review · Fold-Out-Fit</title>
+<style>
+:root{--bg:#0b0b0c;--card:#161618;--fg:#f4f4f5;--mut:#a1a1aa;--yes:#22c55e;--no:#ef4444;--y:#ffe13c}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;overscroll-behavior:none}
+body{display:flex;flex-direction:column;height:100dvh;overflow:hidden;touch-action:none}
+header{display:flex;align-items:center;justify-content:space-between;padding:calc(8px + env(safe-area-inset-top)) 14px 6px}
+header b{font-size:15px;letter-spacing:.3px} header b span{color:var(--y)}
+#prog{font-variant-numeric:tabular-nums;color:var(--mut);font-size:14px}
+#bar{height:3px;background:#27272a;margin:0 14px;border-radius:2px;overflow:hidden}#bar i{display:block;height:100%;width:0;background:var(--y);transition:width .25s}
+#deck{position:relative;flex:1;margin:10px 12px 0;min-height:0}
+.card{position:absolute;inset:0;background:var(--card);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,.5);will-change:transform;transition:transform .3s ease,opacity .3s ease;user-select:none;-webkit-user-select:none}
+.card.drag{transition:none}
+.card .vw{position:relative;flex:1;min-height:0;background:#000;display:flex;justify-content:center}
+.card video{height:100%;max-width:100%;aspect-ratio:9/16;object-fit:contain;background:#000;pointer-events:none}
+.card .meta{padding:10px 14px 12px;max-height:34%;overflow-y:auto;touch-action:pan-y}
+.card h2{margin:0 0 2px;font-size:17px}
+.card .hook{color:var(--y);font-weight:700;margin:2px 0 6px}
+.card .cap{color:var(--mut);font-size:13px;white-space:pre-wrap;margin:0}
+.card .tag{display:inline-block;font-size:11px;color:#d4d4d8;background:#27272a;border-radius:99px;padding:2px 8px;margin:0 4px 6px 0}
+.stamp{position:absolute;top:28px;padding:6px 14px;border:4px solid;border-radius:10px;font:900 34px/1 system-ui,sans-serif;letter-spacing:2px;opacity:0;pointer-events:none;z-index:3}
+.stamp.yes{left:22px;color:var(--yes);border-color:var(--yes);transform:rotate(-14deg)}
+.stamp.no{right:22px;color:var(--no);border-color:var(--no);transform:rotate(14deg)}
+.prev{transform:scale(.95) translateY(14px);opacity:.6}
+.hidden{display:none}
+#ctl{display:flex;justify-content:center;align-items:center;gap:18px;padding:12px 0 calc(12px + env(safe-area-inset-bottom))}
+#ctl button{border:0;border-radius:50%;background:#1f1f23;color:var(--fg);display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+#ctl button:active{transform:scale(.92)}
+#no,#yes{width:68px;height:68px;font-size:30px}#no{color:var(--no)}#yes{color:var(--yes)}
+#undo,#snd{width:50px;height:50px;font-size:20px}
+#undo:disabled{opacity:.35}
+#toast{position:fixed;left:50%;bottom:calc(110px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#27272a;color:#fff;padding:8px 14px;border-radius:99px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+#done{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:10px}
+#done ul{list-style:none;padding:0;margin:4px 0;text-align:left;max-height:45vh;overflow:auto;touch-action:pan-y}
+#done li{margin:3px 0;font-size:14px}
+#done button{margin-top:10px;background:#27272a;color:#fff;border:0;border-radius:99px;padding:10px 18px;font-size:14px}
+#sync{font-size:11px;color:var(--mut);text-align:center;margin-top:4px;min-height:14px}
+.tapsnd{position:absolute;bottom:12px;right:12px;z-index:2;background:rgba(0,0,0,.6);color:#fff;border:0;border-radius:99px;padding:7px 12px;font-size:13px}
+</style>
+</head>
+<body>
+<header><b>Fold-Out-Fit <span>Reel review</span></b><span id="prog">…</span></header>
+<div id="bar"><i></i></div>
+<div id="deck"></div>
+<div id="sync"></div>
+<div id="ctl">
+  <button id="undo" aria-label="Undo last" title="Undo (Z)" disabled>↶</button>
+  <button id="no" aria-label="Reject" title="Reject (←)">✕</button>
+  <button id="yes" aria-label="Approve" title="Approve (→)">✓</button>
+  <button id="snd" aria-label="Sound" title="Sound (M)">🔇</button>
+</div>
+<div id="toast"></div>
+<script>
+(() => {
+const API = 'https://foldoutfit-review.netlify.app/api';
+const LS = 'fof-review-v1';
+const $ = s => document.querySelector(s);
+const deck = $('#deck');
+let videos = [], st = JSON.parse(localStorage.getItem(LS) || '{}');
+st.dec = st.dec || {}; st.hist = st.hist || []; st.queue = st.queue || [];
+st.session = st.session || (Date.now().toString(36) + Math.random().toString(36).slice(2, 6));
+let muted = true;
+const save = () => localStorage.setItem(LS, JSON.stringify(st));
+const toast = (t) => { const e = $('#toast'); e.textContent = t; e.style.opacity = 1; clearTimeout(toast.t); toast.t = setTimeout(() => e.style.opacity = 0, 1300); };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+let flushing = false, retryT = null;
+async function flush() {
+  if (flushing) return; flushing = true; clearTimeout(retryT);
+  while (st.queue.length) {
+    const item = st.queue[0];
+    try {
+      const r = await fetch(API + '/decision', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(item) });
+      if (!r.ok) throw new Error(r.status);
+      st.queue.shift(); save();
+    } catch (e) { $('#sync').textContent = 'Not saved yet: ' + st.queue.length + ' decision(s) waiting to sync, retrying…'; flushing = false; retryT = setTimeout(flush, 5000); return; }
+  }
+  flushing = false;
+  $('#sync').textContent = st.hist.length ? 'All decisions saved ✓' : '';
+}
+function send(id, decision) {
+  const v = videos.find(x => x.id === id) || {};
+  st.queue.push({ id, decision, title: v.title || '', session: st.session }); save(); flush();
+}
+const pending = () => videos.filter(v => !st.dec[v.id]);
+
+function cardEl(v) {
+  const c = document.createElement('div'); c.className = 'card'; c.dataset.id = v.id;
+  c.innerHTML = `<div class="vw"><video playsinline loop muted preload="metadata" poster="${esc(v.poster)}" data-src="${esc(v.src)}"></video>
+    <div class="stamp yes">POST</div><div class="stamp no">NOPE</div></div>
+    <div class="meta"><span class="tag">${esc(v.set)}</span><span class="tag">${esc(v.audio)}</span><span class="tag">${esc(v.dur)}s</span>
+    <h2>${esc(v.title)}</h2><p class="hook">“${esc(v.hook)}”</p><p class="cap">${esc(v.caption)}</p></div>`;
+  return c;
+}
+function render() {
+  deck.innerHTML = '';
+  const p = pending(), total = videos.length, done = total - p.length;
+  $('#prog').textContent = Math.min(done + 1, total) + ' / ' + total;
+  $('#bar i').style.width = (100 * done / total) + '%';
+  $('#undo').disabled = !st.hist.length;
+  if (!p.length) return renderDone();
+  p.slice(0, 2).reverse().forEach((v, i, arr) => {
+    const c = cardEl(v); if (i === 0 && arr.length === 2) c.classList.add('prev'); deck.appendChild(c);
+  });
+  const top = deck.lastElementChild; attach(top); play(top);
+  const nx = top.previousElementSibling; if (nx) { const vv = nx.querySelector('video'); vv.src = vv.dataset.src; vv.preload = 'auto'; }
+}
+function renderDone() {
+  $('#prog').textContent = videos.length + ' / ' + videos.length;
+  const a = videos.filter(v => st.dec[v.id] === 'approve'), r = videos.filter(v => st.dec[v.id] === 'reject');
+  deck.innerHTML = `<div id="done"><h2>All done 🎉</h2><div>${a.length} approved · ${r.length} rejected</div>
+   <ul>${a.map(v => `<li>✅ ${esc(v.title)}</li>`).join('')}${r.map(v => `<li>❌ ${esc(v.title)}</li>`).join('')}</ul>
+   <div style="color:var(--mut);font-size:13px">Your choices are saved. You can close this page.</div>
+   <button id="again">Review again</button></div>`;
+  $('#again').onclick = () => { st.dec = {}; st.hist = []; save(); render(); };
+}
+function play(card) {
+  const v = card.querySelector('video'); if (!v.src) v.src = v.dataset.src;
+  v.muted = muted; v.preload = 'auto';
+  const pr = v.play(); if (pr && pr.catch) pr.catch(() => { v.muted = true; muted = true; updSnd(); v.play().catch(() => {}); });
+  updSnd();
+}
+function updSnd() { $('#snd').textContent = muted ? '🔇' : '🔊'; }
+function decide(d, card) {
+  card = card || deck.querySelector('.card:last-child'); if (!card || card.dataset.gone) return;
+  card.dataset.gone = 1;
+  const id = card.dataset.id; st.dec[id] = d; st.hist.push(id); save(); send(id, d);
+  card.querySelector('.stamp.' + (d === 'approve' ? 'yes' : 'no')).style.opacity = 1;
+  card.style.transform = `translate(${d === 'approve' ? 140 : -140}vw, 0) rotate(${d === 'approve' ? 30 : -30}deg)`;
+  card.style.opacity = 0;
+  const vid = card.querySelector('video'); setTimeout(() => { vid.pause(); render(); }, 260);
+  if (navigator.vibrate) navigator.vibrate(15);
+  toast(d === 'approve' ? '✓ Approved to post' : '✕ Rejected');
+}
+function undo() {
+  const id = st.hist.pop(); if (!id) return; delete st.dec[id]; save(); send(id, 'undo'); render(); toast('↶ Undone');
+}
+function attach(card) {
+  let x0 = 0, y0 = 0, dx = 0, dy = 0, t0 = 0, on = false, moved = false;
+  const yes = card.querySelector('.stamp.yes'), no = card.querySelector('.stamp.no'), vw = card.querySelector('.vw');
+  card.addEventListener('pointerdown', e => {
+    if (e.target.closest('.meta')) return;
+    on = true; moved = false; x0 = e.clientX; y0 = e.clientY; dx = dy = 0; t0 = Date.now(); card.classList.add('drag'); card.setPointerCapture(e.pointerId);
+  });
+  card.addEventListener('pointermove', e => {
+    if (!on) return; dx = e.clientX - x0; dy = e.clientY - y0; if (Math.abs(dx) > 6) moved = true;
+    card.style.transform = `translate(${dx}px, ${dy * 0.25}px) rotate(${dx / 18}deg)`;
+    yes.style.opacity = Math.max(0, Math.min(1, dx / 110)); no.style.opacity = Math.max(0, Math.min(1, -dx / 110));
+  });
+  const end = () => {
+    if (!on) return; on = false; card.classList.remove('drag');
+    const v = Math.abs(dx) / Math.max(1, Date.now() - t0);
+    if (dx > 110 || (dx > 40 && v > 0.6)) return decide('approve', card);
+    if (dx < -110 || (dx < -40 && v > 0.6)) return decide('reject', card);
+    card.style.transform = ''; yes.style.opacity = no.style.opacity = 0;
+    if (!moved) { muted = !muted; const vid = card.querySelector('video'); vid.muted = muted; vid.play().catch(() => {}); updSnd(); toast(muted ? 'Sound off' : 'Sound on'); }
+  };
+  card.addEventListener('pointerup', end); card.addEventListener('pointercancel', end);
+}
+$('#yes').onclick = () => decide('approve');
+$('#no').onclick = () => decide('reject');
+$('#undo').onclick = undo;
+$('#snd').onclick = () => { muted = !muted; const v = deck.querySelector('.card:last-child video'); if (v) { v.muted = muted; v.play().catch(() => {}); } updSnd(); };
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') decide('approve'); else if (e.key === 'ArrowLeft') decide('reject');
+  else if (e.key === 'z' || e.key === 'Backspace' || (e.key === 'ArrowDown')) undo(); else if (e.key === 'm') $('#snd').click();
+});
+document.addEventListener('visibilitychange', () => { const v = deck.querySelector('.card:last-child video'); if (v) document.hidden ? v.pause() : v.play().catch(() => {}); });
+fetch('videos.json?' + Date.now()).then(r => r.json()).then(j => { videos = j.videos; render(); flush(); })
+  .catch(() => { deck.innerHTML = '<div id="done">Could not load the video list. Pull to refresh.</div>'; });
+})();
+</script>
+</body>
+</html>
