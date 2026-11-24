@@ -6,7 +6,7 @@
 <title>Fold-Out-Fit | The bag that unfolds into a clean, hanging closet</title>
 <meta name="description" content="Fold-Out-Fit is a patent-pending bag (U.S. Prov. App. No. 64/189,208) that hooks on any stall or locker hook and unfolds into three shelves, so your clothes and shoes never touch the floor. Join the launch waitlist.">
 <link rel="canonical" href="https://foldoutfit.com/">
-<meta name="theme-color" content="#0b0b0d">
+<meta name="theme-color" content="#08080a">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
@@ -32,261 +32,568 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="hero.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="media/hero-crop.jpg" fetchpriority="high">
 <style>
 :root{
-  --ink:#0b0b0d; --ink2:#141418; --line:#2a2a31; --paper:#f4f2ee; --mute:#b4b2bc;
-  --mag:#d61fe0; --mag-deep:#a011a8; --mag-soft:#f3c6f6;
-  --maxw:1180px;
+  --void:#08080a;
+  --void-2:#111114;
+  --paper:#f3efe8;
+  --paper-2:#e7e0d6;
+  --ink:#16151a;
+  --ink-soft:#3a383f;
+  --mute:#a9a6b0;
+  --mute-paper:#5e5b55;
+  --mag:#d61fe0;
+  --mag-deep:#a011a8;
+  --line:rgba(255,255,255,.1);
+  --line-paper:rgba(22,21,26,.1);
+  --radius:28px;
+  --radius-sm:18px;
+  --max:1180px;
+  --gutter:24px;
+  --display:"Outfit","Helvetica Neue",Arial,sans-serif;
+  --sans:"Instrument Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--ink);color:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{
+  font-family:var(--sans);
+  background:var(--void);
+  color:#f4f2ee;
+  line-height:1.6;
+  font-size:17px;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
 img,video{display:block;max-width:100%;height:auto}
 a{color:inherit}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
-h1,h2,h3{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;line-height:1.02;letter-spacing:-.02em}
-h2{font-size:clamp(2.1rem,4.6vw,3.5rem);font-weight:800}
-.kicker{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mag);margin-bottom:18px;display:flex;align-items:center;gap:10px}
-.kicker::before{content:"";width:22px;height:2px;background:var(--mag)}
-.lede{font-size:1.15rem;color:#cfcdd6;max-width:620px;margin-top:20px}
-section{padding:104px 0}
+.wrap{width:min(var(--max), calc(100% - 2*var(--gutter)));margin-inline:auto}
+h1,h2,h3{font-family:var(--display);line-height:.96;letter-spacing:-.04em;font-weight:700}
+h2{font-size:clamp(2.4rem, 7vw, 4.4rem)}
+section,header.hero{scroll-margin-top:104px}
+.lede{font-size:1.125rem;line-height:1.65;color:var(--mute);max-width:34rem}
+.paper .lede{color:var(--mute-paper)}
 
-.skip{position:absolute;left:16px;top:-48px;z-index:200;background:var(--mag);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;text-decoration:none}
+/* typography helpers */
+.kicker{
+  font-family:var(--mono);
+  font-size:.72rem;
+  font-weight:500;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--mag);
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:1.25rem;
+}
+.kicker::before{content:"";width:20px;height:1px;background:var(--mag)}
+
+.skip{position:absolute;left:16px;top:-48px;z-index:200;background:var(--mag);color:#fff;padding:10px 16px;border-radius:999px;font-weight:600;text-decoration:none}
 .skip:focus{top:16px}
-
 :focus{outline:none}
 :focus-visible{outline:2px solid var(--mag);outline-offset:3px}
 
-/* nav */
-nav{position:sticky;top:0;z-index:50;background:rgba(11,11,13,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
-.logo{display:inline-flex;align-items:center;gap:10px;font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-weight:900;font-size:1.2rem;letter-spacing:-.02em;text-decoration:none}
-.logo .mark{width:28px;height:28px;flex:none;border-radius:7px;display:block}
+/* nav — translucent, no blur (never sits over the video as a frosted sheet) */
+.site-nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(8,8,10,.9);
+  border-bottom:1px solid var(--line);
+}
+.site-nav .wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  min-height:64px;gap:16px;
+}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.logo .mark{width:26px;height:26px;flex:none;display:block}
+.logo .word{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:1.05rem;
+  letter-spacing:-.03em;
+}
 .logo .word span{color:var(--mag)}
-nav ul{display:flex;gap:26px;list-style:none;font-size:.92rem}
-nav ul a{text-decoration:none;color:#cfcdd6}
-nav ul a:hover{color:#fff}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--mag);color:#fff;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:999px;font-size:.95rem;border:0;cursor:pointer;transition:transform .15s,background .15s}
-.btn:hover{transform:translateY(-1px);background:#e540ee}
-.btn.ghost{background:transparent;border:1.5px solid #4a4a52;color:#fff}
-.btn.ghost:hover{border-color:#fff;background:transparent}
-nav .btn{padding:9px 18px;font-size:.85rem}
+.nav-links{display:none;list-style:none;gap:28px;font-size:.92rem;font-weight:500;color:var(--mute)}
+.nav-links a{text-decoration:none}
+.nav-links a:hover{color:#fff}
+.menu-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:42px;height:38px;border-radius:10px;
+  background:transparent;color:#fff;border:1px solid var(--line);
+  font-size:1.15rem;cursor:pointer;
+}
+.site-nav a.nav-cta{display:none}
+.nav-links.open{
+  display:flex;flex-direction:column;gap:14px;width:100%;order:3;
+  padding:8px 0 16px;color:#cfcdd6;
+}
+.site-nav .wrap{flex-wrap:wrap}
 
-/* hero */
-.hero{padding:64px 0 24px;overflow:hidden;background:radial-gradient(ellipse at 80% 10%,rgba(214,31,224,.18),transparent 50%),var(--ink)}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;grid-template-areas:"copy img" "rest img";gap:8px 56px;align-items:center}
-.hero-copy{grid-area:copy}
-.hero-img{grid-area:img}
-.hero-rest{grid-area:rest}
-.hero-copy h1{margin-bottom:0}
-.hero-rest .lede{margin-top:12px}
-.hero h1{font-size:clamp(2.6rem,7vw,6rem);font-weight:900}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--sans);font-weight:600;font-size:.95rem;
+  padding:14px 22px;border-radius:999px;border:0;cursor:pointer;
+  text-decoration:none;color:#fff;background:var(--mag);
+  transition:transform .2s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.btn:hover{background:#e540ee;transform:translateY(-2px);box-shadow:0 10px 28px rgba(214,31,224,.28)}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.28);color:#fff;box-shadow:none}
+.btn.ghost:hover{border-color:#fff;background:transparent;box-shadow:none}
+.btn.dark{background:var(--ink);color:#fff}
+.btn.dark:hover{background:#000;box-shadow:0 10px 24px rgba(0,0,0,.2)}
+.btn[disabled]{opacity:.6;cursor:wait;transform:none;box-shadow:none}
+
+/* ========== HERO ========== */
+.hero{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  padding:28px 0 64px;
+  background:
+    radial-gradient(ellipse 80% 70% at 78% 42%, rgba(214,31,224,.28), transparent 62%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(214,31,224,.07), transparent 60%),
+    var(--void);
+}
+.hero::after{
+  content:"";
+  pointer-events:none;
+  position:absolute;inset:0;
+  background-image:url("media/grain.png");
+  background-size:128px;
+  opacity:.55;
+  z-index:0;
+}
+.hero .wrap{position:relative;z-index:1}
+.hero-grid{display:flex;flex-direction:column;gap:28px}
+.hero-text{display:contents}
+.hero-copy{order:1}
+.hero-stage{order:2}
+.hero-rest{order:3}
+.hero h1{font-size:clamp(3rem, 13vw, 4.4rem);font-weight:800;max-width:9ch}
 .hero h1 em{font-style:normal;color:var(--mag)}
-.hero .lede{font-size:1.22rem}
-.hero-ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
-.hero-tags{display:flex;gap:28px;margin-top:44px;flex-wrap:wrap;color:var(--mute);font-size:.88rem}
-.hero-tags b{color:#fff;font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:1.5rem;display:block;font-weight:800}
-.hero-img{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/5;background:#222}
-.hero-img img{width:100%;height:100%;object-fit:cover}
-.hero-img .badge{position:absolute;left:16px;bottom:16px;background:rgba(11,11,13,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid var(--line);padding:10px 14px;border-radius:12px;font-size:.82rem}
-.hero-img .badge b{color:var(--mag)}
-.shot-toggle{position:absolute;top:16px;right:16px;display:flex;gap:4px;background:rgba(11,11,13,.82);border:1px solid var(--line);border-radius:999px;padding:4px}
-.shot-toggle button{appearance:none;border:0;background:transparent;color:#cfcdd6;font:inherit;font-size:.78rem;font-weight:700;padding:7px 12px;border-radius:999px;cursor:pointer}
+.hero-rest .lede{margin:0 0 24px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.hero-meta{
+  font-size:.88rem;color:var(--mute);
+  display:flex;flex-wrap:wrap;gap:10px 0;
+}
+.hero-meta span{display:inline-flex;align-items:center}
+.hero-meta span + span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--mag);margin:0 12px;opacity:.85}
+
+.hero-stage{position:relative;display:grid;place-items:center}
+.hero-stage .glow{
+  position:absolute;inset:-8% -6%;
+  background:radial-gradient(ellipse at 50% 42%, rgba(214,31,224,.42), transparent 64%);
+  z-index:0;pointer-events:none;
+}
+.hero-frame{
+  position:relative;z-index:1;
+  width:100%;
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:#1a1a1e;
+  box-shadow:0 40px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.07);
+  aspect-ratio:2/3;
+  max-height:58vh;
+}
+.hero-frame img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.shot-toggle{
+  position:absolute;top:14px;right:14px;z-index:2;
+  display:flex;gap:2px;
+  background:rgba(8,8,10,.72);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;padding:3px;
+}
+.shot-toggle button{
+  appearance:none;border:0;background:transparent;
+  color:#cfcdd6;font:inherit;font-size:.75rem;font-weight:600;
+  padding:7px 12px;border-radius:999px;cursor:pointer;
+}
 .shot-toggle button[aria-pressed="true"]{background:var(--mag);color:#fff}
+.hero-cap{
+  position:absolute;left:14px;bottom:14px;z-index:2;
+  font-size:.78rem;color:#eee;
+  background:rgba(8,8,10,.7);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;padding:8px 12px;
+}
+.hero-cap b{color:var(--mag);font-weight:600}
 
-/* problem */
-.problem{background:var(--paper);color:var(--ink);margin-top:88px}
-.problem .lede{color:#4a4852}
-.problem .kicker{color:var(--mag-deep)}.problem .kicker::before{background:var(--mag-deep)}
-.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
-.pain{background:#fff;border-radius:18px;padding:30px;border:1px solid #e3e0da}
-.pain .n{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-weight:900;color:var(--mag-deep);font-size:.9rem}
-.pain h3{font-size:1.4rem;margin:10px 0;font-weight:800}
-.pain p{color:#3b3942}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #d9d5ce;margin-top:72px}
-.stat{padding:30px 22px 0 22px;border-right:1px solid #d9d5ce}
-.stat:first-child{padding-left:0}.stat:last-child{border-right:0}
-.stat b{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-weight:900;font-size:clamp(2rem,3.6vw,3rem);display:block;letter-spacing:-.03em}
-.stat p{font-size:.92rem;color:#3b3942;margin-top:6px}
-.stat small{display:block;color:#6f6d76;font-size:.74rem;margin-top:10px;line-height:1.4}
+/* ========== PROBLEM (paper) ========== */
+.problem{background:var(--paper);color:var(--ink);padding:88px 0}
+.problem .kicker{color:var(--mag-deep)}
+.problem .kicker::before{background:var(--mag-deep)}
+.problem-head{max-width:18ch;margin-bottom:1.25rem}
+.pains{display:grid;gap:0;margin-top:48px;border-top:1px solid var(--line-paper)}
+.pain{padding:28px 0;border-bottom:1px solid var(--line-paper)}
+.pain .n{font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;color:var(--mag-deep);margin-bottom:8px}
+.pain h3{font-size:1.55rem;letter-spacing:-.03em;margin-bottom:8px}
+.pain p{color:var(--ink-soft);max-width:38rem}
+.stats{display:grid;gap:28px;margin-top:56px}
+.stat b{font-family:var(--display);font-size:2.2rem;font-weight:800;letter-spacing:-.04em;display:block}
+.stat p{font-size:.95rem;color:var(--ink);margin-top:4px}
+.stat small{display:block;color:var(--mute-paper);font-size:.75rem;margin-top:8px;line-height:1.45}
 
-/* solution */
-.sol-head{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end}
-.video-card{margin-top:60px;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:#1a1a1f;position:relative}
-.video-card video{width:100%;aspect-ratio:16/9;object-fit:cover;background:#111}
-.video-card .cap{position:absolute;top:16px;left:16px;z-index:1;background:rgba(11,11,13,.8);padding:7px 12px;border-radius:999px;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;pointer-events:none}
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:28px}
-.feat{background:var(--ink2);padding:32px 30px}
-.feat .ico{width:42px;height:42px;border-radius:12px;background:rgba(214,31,224,.14);display:grid;place-items:center;margin-bottom:20px}
-.feat .ico svg{width:22px;height:22px;stroke:var(--mag);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.feat h3{font-size:1.2rem;font-weight:700;margin-bottom:8px}
-.feat p{color:#a9a7b2;font-size:.95rem}
+/* ========== REVEAL / VIDEO ========== */
+.reveal-sec{padding:96px 0;background:var(--void);position:relative;overflow:hidden}
+.reveal-sec .sec-head{max-width:16ch;margin-bottom:16px}
+.reveal-sec .lede{margin-bottom:40px}
+.video-stage{
+  position:relative;
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:#0c0c10;
+  box-shadow:0 40px 80px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.07);
+}
+.video-stage video{width:100%;aspect-ratio:16/9;object-fit:cover;background:#0c0c10}
+.video-stage .cap{
+  position:absolute;top:16px;left:16px;z-index:1;pointer-events:none;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  background:rgba(8,8,10,.75);border:1px solid var(--line);
+  padding:8px 12px;border-radius:999px;
+}
 
-/* how */
-.how{background:var(--ink2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
-.step figure{border-radius:18px;overflow:hidden;aspect-ratio:3/4;background:#222}
-.step img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+/* ========== FEATURES ========== */
+.features-sec{padding:24px 0 96px;background:var(--void)}
+.feat-grid{display:grid;gap:12px}
+.feat{
+  background:var(--void-2);
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:28px 24px;
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.feat:hover{transform:translateY(-4px);border-color:rgba(214,31,224,.4);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.feat .ico{
+  width:44px;height:44px;border-radius:12px;
+  display:grid;place-items:center;
+  background:rgba(214,31,224,.1);margin-bottom:18px;
+}
+.feat .ico svg{width:22px;height:22px;stroke:var(--mag);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{font-size:1.25rem;letter-spacing:-.03em;margin-bottom:8px;font-weight:700}
+.feat p{color:var(--mute);font-size:.98rem}
+
+/* ========== HOW ========== */
+.how{background:var(--paper);color:var(--ink);padding:88px 0}
+.how .kicker{color:var(--mag-deep)}
+.how .kicker::before{background:var(--mag-deep)}
+.steps{display:grid;gap:36px;margin-top:48px}
+.step figure{
+  border-radius:var(--radius);
+  overflow:hidden;
+  aspect-ratio:3/4;
+  background:#ddd;
+  box-shadow:0 20px 50px rgba(22,21,26,.1);
+}
+.step img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;transition:transform .6s ease}
 .step:hover img{transform:scale(1.03)}
-.step .num{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-weight:900;color:var(--mag);font-size:.9rem;margin-top:20px}
-.step h3{font-size:1.35rem;margin:6px 0;font-weight:800}
-.step p{color:#a9a7b2;font-size:.95rem}
+.step .num{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mag-deep);margin-top:18px}
+.step h3{font-size:1.7rem;margin:8px 0;letter-spacing:-.03em}
+.step p{color:var(--mute-paper)}
 
 /* who */
-.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
-.who{border:1px solid var(--line);border-radius:20px;padding:34px 30px;background:linear-gradient(180deg,#16161b,#0f0f12)}
-.who h3{font-size:1.35rem;font-weight:800;margin-bottom:8px}
-.who p{color:#a9a7b2;font-size:.95rem}
+.who-sec{background:var(--paper);color:var(--ink);padding:0 0 96px}
+.who-grid{display:grid;gap:12px;margin-top:40px}
+.who{
+  background:#fff;
+  border:1px solid var(--line-paper);
+  border-radius:var(--radius-sm);
+  padding:28px 24px;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.who:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(22,21,26,.07)}
+.who h3{font-size:1.3rem;margin-bottom:8px;letter-spacing:-.03em}
+.who p{color:var(--mute-paper);font-size:.98rem}
 
-/* drawings / patent */
-.draw-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
-.draw-img{background:#fff;border-radius:20px;padding:18px;cursor:zoom-in;border:0;display:block;width:100%}
-.draw-img img{width:100%;height:auto;border-radius:8px}
-.parts{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;font-size:.92rem}
-.parts div{display:flex;gap:12px;border-bottom:1px solid var(--line);padding:9px 0;color:#cfcdd6}
-.parts b{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;color:var(--mag);min-width:22px}
-.patent{margin-top:34px;border:1px solid var(--line);border-radius:16px;padding:22px 24px;display:flex;gap:26px;flex-wrap:wrap;background:var(--ink2)}
-.patent div small{display:block;color:var(--mute);font-size:.75rem;text-transform:uppercase;letter-spacing:.12em}
-.patent div b{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:1.15rem}
-.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:100;padding:24px;cursor:zoom-out}
+/* ========== PATENT / BLUEPRINT ========== */
+.patent-sec{
+  position:relative;
+  padding:96px 0;
+  background:
+    linear-gradient(rgba(8,8,10,.0), rgba(8,8,10,0)),
+    var(--void);
+  overflow:hidden;
+}
+.patent-sec .gridbg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(214,31,224,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(214,31,224,.07) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse at 50% 50%, #000 40%, transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 50%, #000 40%, transparent 80%);
+}
+.patent-grid{display:flex;flex-direction:column;gap:40px;position:relative}
+.draw-btn{
+  appearance:none;border:0;padding:0;cursor:zoom-in;background:#f7f5f1;
+  border-radius:var(--radius);overflow:hidden;display:block;width:100%;
+  box-shadow:0 0 0 1px rgba(255,255,255,.1), 0 30px 80px rgba(0,0,0,.45);
+  transition:transform .25s ease;
+}
+.draw-btn:hover{transform:translateY(-3px)}
+.draw-btn img{width:100%;height:auto;display:block}
+.patent-copy .lede{margin-bottom:28px}
+.parts{display:grid;gap:0}
+.parts div{
+  display:flex;gap:14px;align-items:baseline;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+  color:#d8d5dc;font-size:.98rem;
+}
+.parts b{font-family:var(--mono);color:var(--mag);font-weight:500;font-size:.78rem;letter-spacing:.08em;min-width:1.8rem}
+.plate{
+  margin-top:32px;
+  display:grid;gap:18px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:22px 20px;
+  background:rgba(17,17,20,.8);
+}
+.plate div small{
+  display:block;
+  font-family:var(--mono);
+  font-size:.68rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--mute);
+  margin-bottom:6px;
+}
+.plate div b{font-family:var(--mono);font-weight:500;font-size:.9rem;letter-spacing:.01em;white-space:nowrap}
+.more-link{display:inline-block;margin-top:22px;color:var(--mag);font-weight:600;text-decoration:none}
+.more-link:hover{text-decoration:underline}
+
+.lightbox{
+  position:fixed;inset:0;background:rgba(0,0,0,.92);
+  display:none;align-items:center;justify-content:center;
+  z-index:100;padding:24px;cursor:zoom-out;
+}
 .lightbox.on{display:flex}
 .lightbox img{max-height:94vh;width:auto;max-width:100%;background:#fff;border-radius:10px;cursor:default}
-.lightbox .lb-close{position:absolute;top:18px;right:18px;background:transparent;border:1px solid #fff;color:#fff;border-radius:999px;width:44px;height:44px;font-size:1.4rem;cursor:pointer}
+.lightbox .lb-close{
+  position:absolute;top:18px;right:18px;
+  background:transparent;border:1px solid #fff;color:#fff;
+  border-radius:999px;width:44px;height:44px;font-size:1.4rem;cursor:pointer;
+}
 
-/* pricing */
-.pricing{background:var(--paper);color:var(--ink)}
-.pricing .lede{color:#4a4852}
-.pricing .kicker{color:var(--mag-deep)}.pricing .kicker::before{background:var(--mag-deep)}
-.plans{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:56px}
-.plan{background:#fff;border:1px solid #e3e0da;border-radius:22px;padding:40px;display:flex;flex-direction:column}
-.plan.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
-.plan .tag{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mag-deep)}
-.plan.dark .tag{color:var(--mag)}
-.plan .price{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-weight:900;font-size:4rem;letter-spacing:-.04em;margin:12px 0 2px}
-.plan .price small{font-size:1rem;font-weight:500;color:#8a8792;letter-spacing:0}
-.plan .planned{display:inline-block;margin-top:4px;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8a8792}
-.plan.dark .planned{color:#9a98a3}
-.plan ul{list-style:none;margin:24px 0 30px;display:grid;gap:12px;flex:1}
-.plan li{display:flex;gap:12px;font-size:.98rem}
-.plan li::before{content:"";flex:none;width:18px;height:18px;margin-top:3px;border-radius:50%;background:var(--mag);mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/16px no-repeat;background-color:var(--mag-deep)}
-.plan.dark li::before{background-color:var(--mag)}
+/* ========== PRICING ========== */
+.pricing{background:var(--paper);color:var(--ink);padding:88px 0}
+.pricing .kicker{color:var(--mag-deep)}
+.pricing .kicker::before{background:var(--mag-deep)}
+.pricing .lede{margin-top:16px}
+.plans{display:grid;gap:16px;margin-top:48px}
+.plan{
+  background:#fff;
+  border:1px solid var(--line-paper);
+  border-radius:var(--radius);
+  padding:32px 28px;
+  display:flex;flex-direction:column;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.plan:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(22,21,26,.08)}
+.plan.featured{background:var(--void);color:#fff;border-color:var(--void)}
+.plan .tag{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mag-deep);font-weight:500;
+}
+.plan.featured .tag{color:var(--mag)}
+.plan .price{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(3rem, 10vw, 4.4rem);
+  letter-spacing:-.05em;margin:12px 0 0;line-height:1;
+}
+.plan .price small{font-size:1rem;font-weight:500;letter-spacing:0;color:#8a8790}
+.plan .planned{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  color:#8a8790;margin-top:10px;
+}
+.plan.featured .planned,.plan.featured .price small{color:#9a98a3}
+.plan .blurb{margin:16px 0 0;color:var(--mute-paper)}
+.plan.featured .blurb{color:#a9a7b2}
+.plan ul{list-style:none;margin:24px 0 28px;display:grid;gap:12px;flex:1}
+.plan li{display:flex;gap:10px;align-items:flex-start;font-size:.98rem}
+.plan li::before{
+  content:"";flex:none;width:18px;height:18px;margin-top:3px;border-radius:50%;
+  background-color:var(--mag-deep);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/16px no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/16px no-repeat;
+}
+.plan.featured li::before{background-color:var(--mag)}
 .plan .btn{align-self:flex-start}
-.compare{margin-top:28px;color:#5a5862;text-align:center}
-.learn-more{margin-top:26px;text-align:center}.learn-more a{color:var(--mag);font-weight:700}
-.pricing .learn-more a{color:var(--mag-deep)}
+.compare{margin-top:28px;text-align:center;color:var(--mute-paper);font-size:.95rem}
 
-/* mission */
-.mission{position:relative;overflow:hidden;padding:140px 0;text-align:center;background:radial-gradient(ellipse at 50% 120%,rgba(214,31,224,.28),transparent 60%),var(--ink)}
-.mission blockquote{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-weight:900;font-size:clamp(2.2rem,5.4vw,4.6rem);letter-spacing:-.03em;line-height:1.02;max-width:900px;margin:0 auto}
-.mission blockquote span{color:var(--mag)}
-.mission p{color:#cfcdd6;max-width:560px;margin:28px auto 0;font-size:1.08rem}
+/* ========== WAITLIST BAND ========== */
+.signup{
+  position:relative;
+  padding:96px 0;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 0%, rgba(214,31,224,.18), transparent 60%),
+    var(--void);
+  overflow:hidden;
+}
+.signup::after{
+  content:"";pointer-events:none;position:absolute;inset:0;
+  background-image:url("media/grain.png");background-size:128px;opacity:.4;
+}
+.signup .wrap{position:relative;z-index:1}
+.signup-grid{display:grid;gap:40px}
+.signup h2{max-width:12ch}
+.signup .lede{margin:16px 0 28px}
+.reasons{display:grid;gap:14px}
+.reason{display:flex;gap:14px;color:#d8d5dc;font-size:.98rem}
+.reason b{font-family:var(--mono);color:var(--mag);font-weight:500;font-size:.78rem;letter-spacing:.08em;min-width:1.6rem;margin-top:5px}
 
-/* signup */
-.signup{background:var(--paper);color:var(--ink)}
-.signup .kicker{color:var(--mag-deep)}.signup .kicker::before{background:var(--mag-deep)}
-.signup .lede{color:#4a4852}
-.signup-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}
-.reasons{margin-top:30px;display:grid;gap:12px}
-.reason{display:flex;gap:14px;align-items:flex-start;font-size:.96rem;color:#3b3942}
-.reason b{font-family:'Archivo','Helvetica Neue',Arial,sans-serif;color:var(--mag-deep);min-width:26px}
-form.fof{background:#fff;border:1px solid #e3e0da;border-radius:22px;padding:36px;display:grid;gap:18px;position:relative}
-.fof .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.fof label{display:grid;gap:7px;font-size:.84rem;font-weight:700;color:#2a2830}
+form.fof{
+  background:var(--paper);color:var(--ink);
+  border-radius:var(--radius);padding:28px 22px;
+  display:grid;gap:16px;position:relative;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+.fof .row{display:grid;gap:14px}
+.fof label{display:grid;gap:7px;font-size:.82rem;font-weight:600;color:var(--ink)}
 .fof label small{font-weight:500;color:#8a8792}
-.fof input,.fof select,.fof textarea{font:inherit;font-size:1rem;color:var(--ink);background:#faf9f7;border:1.5px solid #dcd8d1;border-radius:12px;padding:13px 14px;width:100%;transition:border-color .15s,background .15s}
+.fof input,.fof select,.fof textarea{
+  font:inherit;font-size:1rem;color:var(--ink);
+  background:#fff;border:1.5px solid #d8d3cb;
+  border-radius:12px;padding:13px 14px;width:100%;
+  transition:border-color .15s, box-shadow .15s;
+}
 .fof textarea{min-height:110px;resize:vertical}
-.fof select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a011a8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:40px;cursor:pointer}
-.fof input:focus,.fof select:focus,.fof textarea:focus{outline:none;border-color:var(--mag);background:#fff;box-shadow:0 0 0 3px rgba(214,31,224,.25)}
+.fof select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a011a8' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:40px;cursor:pointer;
+}
+.fof input:focus,.fof select:focus,.fof textarea:focus{
+  outline:none;border-color:var(--mag);box-shadow:0 0 0 3px rgba(214,31,224,.22)
+}
 .fof .opt{display:none}
 .fof .opt.on{display:grid}
 .fof .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.fof button{border:0;cursor:pointer;justify-content:center;font-family:inherit;font-size:1rem;padding:15px 22px}
-.fof button[disabled]{opacity:.6;cursor:wait}
 .fof .fine{font-size:.8rem;color:#8a8792;text-align:center}
 .fof .status{display:none;border-radius:12px;padding:14px 16px;font-size:.95rem}
 .fof .status.ok{display:block;background:#f6e3f7;color:#6d0a73}
 .fof .status.err{display:block;background:#fde8e8;color:#8a1c1c}
 
-/* contact */
-.contact{border-top:1px solid var(--line)}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-.founder{display:flex;gap:20px;align-items:center;margin-top:30px}
-.avatar{width:64px;height:64px;border-radius:50%;background:var(--mag);display:grid;place-items:center;font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-weight:900;font-size:1.3rem;color:#fff}
+/* contact + footer */
+.contact{padding:72px 0;border-top:1px solid var(--line);background:var(--void)}
+.contact-grid{display:grid;gap:32px}
+.founder{display:flex;gap:16px;align-items:center;margin-top:28px}
+.avatar{
+  width:56px;height:56px;border-radius:50%;background:var(--mag);
+  display:grid;place-items:center;
+  font-family:var(--display);font-weight:800;font-size:1.15rem;color:#fff;
+}
 .founder small{color:var(--mute)}
-.c-links{display:grid;gap:12px}
-.c-link{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:16px;padding:20px 24px;text-decoration:none;background:var(--ink2);transition:border-color .15s}
-.c-link:hover{border-color:var(--mag)}
-.c-link small{display:block;color:var(--mute);font-size:.76rem;text-transform:uppercase;letter-spacing:.12em}
-.c-link b{font-size:1.1rem}
-.c-link .arr{color:var(--mag);font-size:1.4rem}
+.c-links{display:grid;gap:10px}
+.c-link{
+  display:flex;justify-content:space-between;align-items:center;
+  border:1px solid var(--line);border-radius:16px;padding:18px 20px;
+  text-decoration:none;background:var(--void-2);
+  transition:border-color .2s, transform .2s;
+}
+.c-link:hover{border-color:var(--mag);transform:translateY(-2px)}
+.c-link small{display:block;font-family:var(--mono);color:var(--mute);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase}
+.c-link b{font-size:1.05rem}
+.c-link .arr{color:var(--mag)}
 
-footer{border-top:1px solid var(--line);padding:30px 0;color:var(--mute);font-size:.85rem}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;align-items:center}
-footer .social{display:flex;gap:14px;flex-wrap:wrap}
-footer .social a{text-decoration:none;color:#cfcdd6}footer .social a:hover{color:var(--mag)}
-footer .top{text-decoration:none}
+.site-foot{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--mute);font-size:.85rem}
+.site-foot .wrap{display:flex;flex-direction:column;gap:16px}
+.social{display:flex;flex-wrap:wrap;gap:8px 16px}
+.social a{text-decoration:none;color:#cfcdd6}
+.social a:hover{color:var(--mag)}
+.top{text-decoration:none;color:var(--mute)}
+.top:hover{color:#fff}
 
-.menu-btn{display:none;background:none;border:1px solid var(--line);color:#fff;border-radius:10px;width:42px;height:38px;font-size:1.2rem;cursor:pointer}
+.sticky-cta{
+  display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(8,8,10,.94);
+  border-top:1px solid var(--line);
+  justify-content:center;
+}
+.sticky-cta .btn{width:100%;max-width:520px}
+.sticky-cta.hide{display:none}
+body{padding-bottom:76px}
 
-.sticky-cta{display:none}
-
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:none}
+/* motion */
+.rise{opacity:0;transform:translateY(22px);transition:opacity .8s ease, transform .8s ease}
+.rise.in{opacity:1;transform:none}
 
 @media (prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none;transition:none}
+  .rise{opacity:1;transform:none;transition:none}
   html{scroll-behavior:auto}
-  .btn:hover,.step:hover img{transform:none}
+  .btn:hover,.feat:hover,.plan:hover,.who:hover,.c-link:hover,.draw-btn:hover,.step:hover img{transform:none;box-shadow:none}
 }
 
-@media (max-width:960px){
-  nav ul{display:none}
-  .menu-btn{display:inline-flex;align-items:center;justify-content:center}
-  nav ul.open{display:flex;flex-direction:column;gap:14px;width:100%;order:3;padding:14px 0 8px}
-  section{padding:84px 0}
-  .hero-grid,.sol-head,.draw-grid,.contact-grid,.signup-grid,.fof .row,.plans,.pains,.features,.steps,.who-grid,.parts{grid-template-columns:1fr}
-  .hero-grid{grid-template-areas:"copy" "img" "rest";gap:22px}
-  .hero{padding:28px 0 12px}
-  .hero-img{aspect-ratio:4/5;max-height:58vh}
-  nav .wrap>.btn{display:none}
-  nav .wrap{flex-wrap:wrap;height:auto;min-height:64px;padding-top:0;padding-bottom:0}
-  .stats{grid-template-columns:1fr 1fr}
-  .stat{border-right:0;padding-left:0;border-bottom:1px solid #d9d5ce;padding-bottom:22px}
-  .stats .stat:last-child{border-bottom:0}
-  form.fof{padding:26px}
-  .problem{margin-top:64px}
-  .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(11,11,13,.94);border-top:1px solid var(--line);justify-content:center}
-  .sticky-cta .btn{width:100%;max-width:520px}
-  .sticky-cta.hide{display:none}
-  body{padding-bottom:76px}
+/* ========== DESKTOP ========== */
+@media (min-width:900px){
+  :root{--gutter:32px}
+  body{padding-bottom:0;font-size:18px}
+  .sticky-cta{display:none}
+  .menu-btn{display:none}
+  .nav-links{display:flex}
+  .site-nav a.nav-cta{display:inline-flex;padding:9px 16px;font-size:.85rem}
+  .site-nav .wrap{flex-wrap:nowrap}
+  .site-nav .wrap{min-height:72px}
+
+  .hero{min-height:100svh;display:flex;align-items:center;padding:40px 0 80px}
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px 72px;
+    align-items:center;
+  }
+  .hero-text{display:flex;flex-direction:column;justify-content:center;gap:28px;order:0}
+  .hero-stage{order:1}
+  .hero h1{font-size:clamp(4.6rem, 7vw, 7.2rem);max-width:8ch}
+  .hero-stage{display:grid;place-items:end center}
+  .hero-frame{max-height:calc(100svh - 160px);aspect-ratio:2/3;height:auto;width:auto;max-width:100%}
+  .hero-rest .lede{font-size:1.2rem;margin-top:0}
+
+  .problem,.how,.pricing,.signup,.reveal-sec,.patent-sec{padding:128px 0}
+  .features-sec{padding:0 0 128px}
+  .who-sec{padding:0 0 128px}
+  .pains{grid-template-columns:repeat(3,1fr);gap:0 32px;border-top:0}
+  .pain{padding:0;border-bottom:0;border-top:1px solid var(--line-paper);padding-top:28px}
+  .stats{grid-template-columns:repeat(3,1fr);gap:32px}
+  .stat b{font-size:3rem}
+  .feat-grid{grid-template-columns:repeat(3,1fr);gap:16px}
+  .steps{grid-template-columns:repeat(3,1fr);gap:28px}
+  .who-grid{grid-template-columns:repeat(3,1fr);gap:16px}
+  .patent-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+  .plate{grid-template-columns:repeat(3,1fr)}
+  .plans{grid-template-columns:1fr 1fr;gap:20px}
+  .plan{padding:40px 36px}
+  .signup-grid{grid-template-columns:.9fr 1.1fr;gap:72px;align-items:start}
+  .fof{padding:36px}
+  .fof .row{grid-template-columns:1fr 1fr;gap:16px}
+  .contact-grid{grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .site-foot .wrap{flex-direction:row;justify-content:space-between;align-items:center}
 }
 
-@media (max-width:560px){
-  .stats{grid-template-columns:1fr}
-  .hero-tags{gap:22px}
-  .wrap{padding:0 20px}
-  .plan .price{font-size:3.1rem}
+@media (min-width:900px) and (max-width:1100px){
+  .hero h1{font-size:4.4rem}
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<nav aria-label="Main">
+<nav class="site-nav" aria-label="Main">
   <div class="wrap">
     <a href="#top" class="logo">
-      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#0b0b0d"/><rect width="64" height="64" rx="14" fill="none" stroke="#2a2a31"/><path d="M18 14h28v8H27v8h16v8H27v12h-9z" fill="#d61fe0"/></svg>
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#08080a"/><rect x=".75" y=".75" width="62.5" height="62.5" rx="13.25" fill="none" stroke="#2a2a31"/><path d="M18 14h28v8H27v8h16v8H27v12h-9z" fill="#d61fe0"/></svg>
       <span class="word">Fold<span>-</span>Out<span>-</span>Fit</span>
     </a>
-    <ul id="navList">
-      <li><a href="#problem">Problem</a></li>
+    <ul class="nav-links" id="navList">
+      <li><a href="#problem">The problem</a></li>
+      <li><a href="#reveal">The reveal</a></li>
       <li><a href="#how">How it works</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#notify" class="btn">Join the waitlist</a>
+    <a href="#notify" class="btn nav-cta">Join the waitlist</a>
     <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navList">☰</button>
   </div>
 </nav>
@@ -294,44 +601,45 @@ footer .top{text-decoration:none}
 <main id="main">
 <header class="hero" id="top">
   <div class="wrap hero-grid">
-    <div class="hero-copy reveal">
-      <div class="kicker">Patent pending · Hygiene-first carry</div>
+    <div class="hero-text">
+    <div class="hero-copy rise">
+      <div class="kicker">Patent pending</div>
       <h1>Your clean closet, <em>anywhere.</em></h1>
     </div>
-    <div class="hero-img reveal">
-      <img id="heroShot" src="hero.jpg" width="1050" height="1400" alt="Fold-Out-Fit unfolded into a three-shelf organizer, hanging on a restroom stall door hook" fetchpriority="high">
-      <div class="shot-toggle" role="group" aria-label="Product photos">
-        <button type="button" id="shotOpen" aria-pressed="true" data-src="hero.jpg" data-alt="Fold-Out-Fit unfolded into a three-shelf organizer, hanging on a restroom stall door hook">Unfolded</button>
-        <button type="button" id="shotFold" aria-pressed="false" data-src="folded.jpg" data-alt="Fold-Out-Fit folded closed as a compact gray bag hanging on a wall hook">Folded</button>
-      </div>
-      <div class="badge" id="heroBadge"><b>Unfolded</b> &nbsp;on a standard stall hook</div>
-    </div>
-    <div class="hero-rest reveal">
-      <p class="lede">Fold-Out-Fit is a bag that unfolds into a hanging shelf system. Hook it on any stall or locker hook and your clothes, shoes and gear stay off the floor and organized while you change.</p>
+    <div class="hero-rest rise">
+      <p class="lede">A bag that unfolds into a hanging shelf system. Hook it on any stall or locker hook and your clothes, shoes and gear stay off the floor while you change.</p>
       <div class="hero-ctas">
         <a href="#notify" class="btn">Join the waitlist</a>
-        <a href="#solution" class="btn ghost">Watch it unfold</a>
+        <a href="#reveal" class="btn ghost">Watch it unfold</a>
       </div>
-      <div class="hero-tags">
-        <div><b>3</b>shelves, one bag</div>
-        <div><b>0</b>contact with the floor</div>
-        <div><b>$50</b>planned price</div>
+      <p class="hero-meta"><span>Three shelves, one bag</span><span>Off the floor</span><span>Planned price $50</span></p>
+    </div>
+    </div>
+    <div class="hero-stage rise">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="hero-frame">
+        <img id="heroShot" src="media/hero-crop.jpg" width="900" height="1350" alt="Fold-Out-Fit unfolded into a three-shelf organizer, hanging on a restroom stall door hook" fetchpriority="high">
+        <div class="shot-toggle" role="group" aria-label="Product photos">
+          <button type="button" id="shotOpen" aria-pressed="true" data-src="media/hero-crop.jpg" data-alt="Fold-Out-Fit unfolded into a three-shelf organizer, hanging on a restroom stall door hook">Unfolded</button>
+          <button type="button" id="shotFold" aria-pressed="false" data-src="media/folded-crop.jpg" data-alt="Fold-Out-Fit folded closed as a compact gray bag hanging on a wall hook">Folded</button>
+        </div>
+        <div class="hero-cap" id="heroBadge"><b>Unfolded</b> on a standard stall hook</div>
       </div>
     </div>
   </div>
 </header>
 
-<section class="problem" id="problem">
+<section class="problem paper" id="problem">
   <div class="wrap">
     <div class="kicker">The problem</div>
-    <h2 class="reveal">The balancing act.</h2>
-    <p class="lede reveal">Public restrooms and locker rooms almost never give you a clean surface to change on. So everyone improvises.</p>
+    <h2 class="problem-head rise">The balancing act.</h2>
+    <p class="lede rise">Public restrooms and locker rooms almost never give you a clean surface to change on. So everyone improvises.</p>
     <div class="pains">
-      <div class="pain reveal"><div class="n">01</div><h3>Awkwardly holding clean clothes</h3><p>Keeping clean clothing separate and managed is a struggle with nowhere to put it.</p></div>
-      <div class="pain reveal"><div class="n">02</div><h3>Balancing on one foot</h3><p>Avoiding dirty surfaces forces uncomfortable postures every time you change.</p></div>
-      <div class="pain reveal"><div class="n">03</div><h3>Bags that don't help</h3><p>Standard bags get messy fast, mixing clean clothes in with dirty items.</p></div>
+      <div class="pain rise"><div class="n">01</div><h3>Awkwardly holding clean clothes</h3><p>Keeping clean clothing separate and managed is a struggle with nowhere to put it.</p></div>
+      <div class="pain rise"><div class="n">02</div><h3>Balancing on one foot</h3><p>Avoiding dirty surfaces forces uncomfortable postures every time you change.</p></div>
+      <div class="pain rise"><div class="n">03</div><h3>Bags that don’t help</h3><p>Standard bags get messy fast, mixing clean clothes in with dirty items.</p></div>
     </div>
-    <div class="stats reveal">
+    <div class="stats rise">
       <div class="stat"><b>89%</b><p>of surfaces harbor dangerous bacteria</p><small>Tehran public restroom study, Journal of Family Medicine, 2020</small></div>
       <div class="stat"><b>50%</b><p>of fecal particles travel past the toilet bowl and into the air</p><small>AIP Publishing</small></div>
       <div class="stat"><b>80%</b><p>of Americans are concerned with cleanliness</p><small>Bradley Corp. Healthy Handwashing Survey, 2024</small></div>
@@ -339,28 +647,27 @@ footer .top{text-decoration:none}
   </div>
 </section>
 
-<section id="solution">
+<section class="reveal-sec" id="reveal">
   <div class="wrap">
-    <div class="sol-head">
-      <div>
-        <div class="kicker">The solution</div>
-        <h2 class="reveal">Turn any stall into a closet.</h2>
-      </div>
-      <p class="lede reveal" style="margin:0">Fold-Out-Fit hooks onto a standard stall hanger and drops open into stacked shelves, using vertical space you already have. Folded clothes up top, shoes kept separate at the bottom, nothing on the tile.</p>
+    <div class="kicker">The reveal</div>
+    <h2 class="sec-head rise">Turn any stall into a closet.</h2>
+    <p class="lede rise">Fold-Out-Fit hooks onto a standard stall hanger and drops open into stacked shelves, using vertical space you already have. Folded clothes up top, shoes kept separate at the bottom, nothing on the tile.</p>
+    <div class="video-stage rise" id="videoStage">
+      <span class="cap">14-second unfold</span>
+      <video id="unfoldVid" src="unfold.mp4" width="1280" height="720" muted playsinline preload="metadata" controls poster="media/hero-crop.jpg" aria-label="Fold-Out-Fit unfolding from a bag into a three-shelf organizer on a wall"></video>
     </div>
+  </div>
+</section>
 
-    <div class="video-card reveal">
-      <span class="cap">Watch it unfold</span>
-      <video id="unfoldVid" src="unfold.mp4" width="1280" height="720" muted loop playsinline preload="metadata" controls poster="hero.jpg" aria-label="Fold-Out-Fit unfolding from a bag into a three-shelf organizer on a wall"></video>
-    </div>
-
-    <div class="features">
-      <div class="feat reveal"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></div><h3>Robust design</h3><p>A stable back support and a reliable top hinge make it durable and easy to use.</p></div>
-      <div class="feat reveal"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a2 2 0 012 2c0 1.5-2 2-2 3.5V10M3 20l9-10 9 10z"/></svg></div><h3>Universal compatibility</h3><p>Hooks onto standard stall hangers for quick, secure installation.</p></div>
-      <div class="feat reveal"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17h16M6 17v3M18 17v3M7 13l5-8 5 8"/></svg></div><h3>Removable insert</h3><p>The "Hygiene First" bottom insert keeps socks from touching restroom tiles.</p></div>
-      <div class="feat reveal"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div><h3>Wrinkle-free storage</h3><p>A shelf-like structure built for folded clothes keeps creases to a minimum.</p></div>
-      <div class="feat reveal"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v6M12 15v6M3 12h6M15 12h6"/></svg></div><h3>Innovative hinge</h3><p>A unique 3D-printed hinge system allows a flexible, fabric-based middle section.</p></div>
-      <div class="feat reveal"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 14h16"/></svg></div><h3>Dual compartments</h3><p>A dedicated section keeps shoes separate from your garments.</p></div>
+<section class="features-sec" id="features">
+  <div class="wrap">
+    <div class="feat-grid">
+      <article class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></div><h3>Robust design</h3><p>A stable back support and a reliable top hinge make it durable and easy to use.</p></article>
+      <article class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a2 2 0 012 2c0 1.5-2 2-2 3.5V10M3 20l9-10 9 10z"/></svg></div><h3>Universal compatibility</h3><p>Hooks onto standard stall hangers for quick, secure installation.</p></article>
+      <article class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17h16M6 17v3M18 17v3M7 13l5-8 5 8"/></svg></div><h3>Removable insert</h3><p>The “Hygiene First” bottom insert keeps socks from touching restroom tiles.</p></article>
+      <article class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div><h3>Wrinkle-free storage</h3><p>A shelf-like structure built for folded clothes keeps creases to a minimum.</p></article>
+      <article class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v6M12 15v6M3 12h6M15 12h6"/></svg></div><h3>Innovative hinge</h3><p>A unique 3D-printed hinge system allows a flexible, fabric-based middle section.</p></article>
+      <article class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 14h16"/></svg></div><h3>Dual compartments</h3><p>A dedicated section keeps shoes separate from your garments.</p></article>
     </div>
   </div>
 </section>
@@ -368,34 +675,50 @@ footer .top{text-decoration:none}
 <section class="how" id="how">
   <div class="wrap">
     <div class="kicker">How it works</div>
-    <h2 class="reveal">Hang. Unfold. Change.</h2>
+    <h2 class="rise">Hang. Unfold. Change.</h2>
     <div class="steps">
-      <div class="step reveal"><figure><img src="folded.jpg" width="1050" height="1400" alt="Fold-Out-Fit folded closed as a compact gray bag hanging on a wall hook" loading="lazy"></figure><div class="num">STEP 01</div><h3>Carry it like a bag</h3><p>Zipped up, it's a compact carry bag that goes to practice, the gym or your commute.</p></div>
-      <div class="step reveal"><figure><img src="side.jpg" width="1050" height="1400" alt="Side view of Fold-Out-Fit unfolded on a stall hook showing shelves" loading="lazy"></figure><div class="num">STEP 02</div><h3>Hook and drop</h3><p>Hang it on any stall or locker hook and let the shelves fold down into place.</p></div>
-      <div class="step reveal"><figure><img src="hero.jpg" width="1050" height="1400" alt="Front view of Fold-Out-Fit fully deployed with three shelves" loading="lazy"></figure><div class="num">STEP 03</div><h3>Change clean</h3><p>Everything has its own shelf off the floor. When you're done, it folds back up.</p></div>
+      <div class="step rise">
+        <figure><img src="media/folded-crop.jpg" width="800" height="1286" alt="Fold-Out-Fit folded closed as a compact gray bag hanging on a wall hook" loading="lazy"></figure>
+        <div class="num">Step 01</div>
+        <h3>Carry it like a bag</h3>
+        <p>Zipped up, it’s a compact carry bag that goes to practice, the gym or your commute.</p>
+      </div>
+      <div class="step rise">
+        <figure><img src="media/side-crop.jpg" width="800" height="1173" alt="Side view of Fold-Out-Fit unfolded on a stall hook showing shelves" loading="lazy"></figure>
+        <div class="num">Step 02</div>
+        <h3>Hook and drop</h3>
+        <p>Hang it on any stall or locker hook and let the shelves fold down into place.</p>
+      </div>
+      <div class="step rise">
+        <figure><img src="media/hero-crop.jpg" width="900" height="1350" alt="Front view of Fold-Out-Fit fully deployed with three shelves" loading="lazy"></figure>
+        <div class="num">Step 03</div>
+        <h3>Change clean</h3>
+        <p>Everything has its own shelf off the floor. When you’re done, it folds back up.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="who">
+<section class="who-sec" id="who">
   <div class="wrap">
-    <div class="kicker">Who it's for</div>
-    <h2 class="reveal">Anyone who changes away from home.</h2>
+    <div class="kicker">Who it’s for</div>
+    <h2 class="rise">Anyone who changes away from home.</h2>
     <div class="who-grid">
-      <div class="who reveal"><h3>Students &amp; athletes</h3><p>Swimmers, runners, football players and theater kids who change in locker rooms and restrooms and need something fast and hygienic.</p></div>
-      <div class="who reveal"><h3>Gym-goers</h3><p>Before work, after work, or between classes. Change quickly without setting your clean clothes on a wet bench or locker-room floor.</p></div>
-      <div class="who reveal"><h3>Travelers</h3><p>Commuters, truck drivers and frequent travelers who pay for showers on the road and need a clean place to change.</p></div>
+      <div class="who rise"><h3>Students &amp; athletes</h3><p>Swimmers, runners, football players and theater kids who change in locker rooms and restrooms and need something fast and hygienic.</p></div>
+      <div class="who rise"><h3>Gym-goers</h3><p>Before work, after work, or between classes. Change quickly without setting your clean clothes on a wet bench or locker-room floor.</p></div>
+      <div class="who rise"><h3>Travelers</h3><p>Commuters, truck drivers and frequent travelers who pay for showers on the road and need a clean place to change.</p></div>
     </div>
   </div>
 </section>
 
-<section id="patent">
-  <div class="wrap draw-grid">
-    <button type="button" class="draw-img reveal" id="drawOpen" aria-label="Enlarge patent drawings">
+<section class="patent-sec" id="patent">
+  <div class="gridbg" aria-hidden="true"></div>
+  <div class="wrap patent-grid">
+    <button type="button" class="draw-btn rise" id="drawOpen" aria-label="Enlarge patent drawings">
       <img src="drawings.png" width="1360" height="1760" alt="Patent drawings of the Fold-Out-Fit bag and unfolding three-shelf system" loading="lazy">
     </button>
-    <div class="reveal">
-      <div class="kicker">Patent pending</div>
+    <div class="patent-copy rise">
+      <div class="kicker">Blueprint</div>
       <h2>Designed to hang. Built to fold.</h2>
       <p class="lede">The structure, hook, shelves and hygiene insert are covered by a pending U.S. provisional patent. Tap the drawings to enlarge, or read the full engineering and business case on the deep-dive site.</p>
       <div class="parts">
@@ -404,40 +727,40 @@ footer .top{text-decoration:none}
         <div><b>03</b> Flexible fabric mid-section</div>
         <div><b>04</b> Removable hygiene insert</div>
       </div>
-      <div class="patent">
+      <div class="plate">
         <div><small>Status</small><b>Patent pending</b></div>
         <div><small>U.S. provisional</small><b>App. No. 64/189,208</b></div>
         <div><small>Filed</small><b>November 1, 2026</b></div>
       </div>
-      <p class="learn-more" style="text-align:left"><a href="https://foldoutfit.info">Deep dive at foldoutfit.info →</a></p>
+      <a class="more-link" href="https://foldoutfit.info">Deep dive at foldoutfit.info →</a>
     </div>
   </div>
 </section>
 
-<section class="pricing" id="pricing">
+<section class="pricing paper" id="pricing">
   <div class="wrap">
     <div class="kicker">Planned pricing</div>
-    <h2 class="reveal">Gym-bag price. A hanging closet built in.</h2>
-    <p class="lede reveal">The average gym bag costs $30–50. Fold-Out-Fit is planned to match that range and add a deployable clean shelf. It is not on sale yet.</p>
+    <h2 class="rise">Gym-bag money. A hanging closet built&nbsp;in.</h2>
+    <p class="lede rise">The average gym bag costs $30–50. Fold-Out-Fit is planned to match that range and add a deployable clean shelf. It is not on sale yet.</p>
     <div class="plans">
-      <div class="plan reveal">
+      <div class="plan rise">
         <div class="tag">Individual</div>
         <div class="price">$50 <small>/ bag</small></div>
-        <div class="planned">Planned launch price</div>
-        <p style="color:#5a5862;margin-top:14px">For athletes, gym-goers and travelers.</p>
+        <div class="planned">Planned launch price · not yet on sale</div>
+        <p class="blurb">For athletes, gym-goers and travelers.</p>
         <ul>
           <li>Full three-shelf deployable system</li>
-          <li>Removable "Hygiene First" bottom insert</li>
+          <li>Removable “Hygiene First” bottom insert</li>
           <li>Separate shoe compartment</li>
           <li>Fold-Out-Fit logo embroidered on the front</li>
         </ul>
-        <a href="#notify" class="btn ghost" data-interest="Notify me at launch">Get notified at launch</a>
+        <a href="#notify" class="btn ghost" style="border-color:#c8c3bb;color:var(--ink)" data-interest="Notify me at launch">Get notified at launch</a>
       </div>
-      <div class="plan dark reveal">
+      <div class="plan featured rise">
         <div class="tag">Schools &amp; teams</div>
-        <div class="price">$25 <small style="color:#9a98a3">/ bag, bulk</small></div>
-        <div class="planned">Planned bulk price</div>
-        <p style="color:#a9a7b2;margin-top:14px">For athletic departments, teams and programs.</p>
+        <div class="price">$25 <small>/ bag, bulk</small></div>
+        <div class="planned">Planned bulk price · not yet on sale</div>
+        <p class="blurb">For athletic departments, teams and programs.</p>
         <ul>
           <li>Everything in Individual</li>
           <li>Your school or team logo, embroidered free</li>
@@ -446,33 +769,25 @@ footer .top{text-decoration:none}
         <a href="#notify" class="btn" data-interest="Collaborator">Ask about bulk</a>
       </div>
     </div>
-    <p class="compare">Not yet on sale. Join the waitlist below and you'll hear first when it launches.</p>
-  </div>
-</section>
-
-<section class="mission">
-  <div class="wrap">
-    <div class="kicker" style="justify-content:center">Our mission</div>
-    <blockquote class="reveal">Respecting your <span>time</span>, <span>hygiene</span>, and <span>clothes</span>.</blockquote>
-    <p class="reveal">To provide innovative and hygienic solutions for garment care and organization in public spaces.</p>
+    <p class="compare">Join the waitlist below and you’ll hear first when it launches.</p>
   </div>
 </section>
 
 <section class="signup" id="notify">
   <div class="wrap signup-grid">
     <div>
-      <div class="kicker">Stay in the loop</div>
-      <h2 class="reveal">Be the first to know.</h2>
-      <p class="lede reveal">Fold-Out-Fit is getting ready for launch. Leave your contact info and we'll let you know the moment it's available. Also use this form if you'd like to invest, collaborate, or have me present it somewhere.</p>
-      <div class="reasons reveal">
-        <div class="reason"><b>01</b><span><strong>Launch updates:</strong> get notified when Fold-Out-Fit is released.</span></div>
-        <div class="reason"><b>02</b><span><strong>Investors:</strong> start a conversation about funding the next stage.</span></div>
-        <div class="reason"><b>03</b><span><strong>Collaborators:</strong> manufacturing, design, retail, or team partnerships.</span></div>
-        <div class="reason"><b>04</b><span><strong>Presentations:</strong> bring Fold-Out-Fit to your class, event, or pitch competition.</span></div>
+      <div class="kicker">The waitlist</div>
+      <h2 class="rise">Be the first to know.</h2>
+      <p class="lede rise">Fold-Out-Fit is getting ready for launch. Leave your contact info and we’ll let you know the moment it’s available. Also use this form if you’d like to invest, collaborate, or have me present it somewhere.</p>
+      <div class="reasons rise">
+        <div class="reason"><b>01</b><span><strong>Launch updates.</strong> Get notified when Fold-Out-Fit is released.</span></div>
+        <div class="reason"><b>02</b><span><strong>Investors.</strong> Start a conversation about funding the next stage.</span></div>
+        <div class="reason"><b>03</b><span><strong>Collaborators.</strong> Manufacturing, design, retail, or team partnerships.</span></div>
+        <div class="reason"><b>04</b><span><strong>Presentations.</strong> Bring Fold-Out-Fit to your class, event, or pitch competition.</span></div>
       </div>
     </div>
-    <form class="fof reveal" id="fofForm" action="https://formspree.io/f/xbggprba" method="POST">
-      <label for="interest">I'm interested in…
+    <form class="fof rise" id="fofForm" action="https://formspree.io/f/xbggprba" method="POST">
+      <label for="interest">I’m interested in…
         <select name="interest" id="interest">
           <option value="Notify me at launch" selected>Notify me at launch</option>
           <option value="Potential investor">Potential investor</option>
@@ -493,7 +808,7 @@ footer .top{text-decoration:none}
       <label class="hp" aria-hidden="true">Leave blank<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
       <button type="submit" class="btn" id="fofBtn">Join the waitlist</button>
       <div class="status" id="fofStatus" role="status" aria-live="polite"></div>
-      <p class="fine">We'll only use your info to contact you about Fold-Out-Fit.</p>
+      <p class="fine">We’ll only use your info to contact you about Fold-Out-Fit.</p>
     </form>
   </div>
 </section>
@@ -502,14 +817,14 @@ footer .top{text-decoration:none}
   <div class="wrap contact-grid">
     <div>
       <div class="kicker">Contact</div>
-      <h2 class="reveal">Let's talk.</h2>
-      <p class="lede reveal">Questions, or interested in bulk for your school or team? Reach out directly, or use the <a href="#notify" data-interest="Collaborator" style="color:var(--mag)">form above</a>.</p>
-      <div class="founder reveal">
+      <h2 class="rise">Let’s talk.</h2>
+      <p class="lede rise">Questions, or interested in bulk for your school or team? Reach out directly, or use the <a href="#notify" data-interest="Collaborator" style="color:var(--mag)">form above</a>.</p>
+      <div class="founder rise">
         <div class="avatar" aria-hidden="true">WD</div>
         <div><b>Warren Tyler Daisey</b><br><small>Founder, Fold-Out-Fit</small></div>
       </div>
     </div>
-    <div class="c-links reveal">
+    <div class="c-links rise">
       <a class="c-link" href="tel:+13653688348"><div><small>Phone</small><b>(365) 368-8348</b></div><span class="arr" aria-hidden="true">→</span></a>
       <a class="c-link" href="mailto:warren@foldoutfit.com"><div><small>Email</small><b>warren@foldoutfit.com</b></div><span class="arr" aria-hidden="true">→</span></a>
     </div>
@@ -517,7 +832,7 @@ footer .top{text-decoration:none}
 </section>
 </main>
 
-<footer>
+<footer class="site-foot">
   <div class="wrap">
     <span>© 2026 Fold-Out-Fit · Patent pending (U.S. Prov. App. No. 64/189,208, filed Nov 1, 2026)</span>
     <div class="social">
@@ -545,25 +860,18 @@ footer .top{text-decoration:none}
 <script>
 (function(){
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){
-    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
-    return;
-  }
-  if(!('IntersectionObserver' in window)){
-    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+  var els=document.querySelectorAll('.rise');
+  if(reduce || !('IntersectionObserver' in window)){
+    els.forEach(function(el){el.classList.add('in');});
     return;
   }
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
   },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-  document.addEventListener('visibilitychange',function(){
-    /* reveals are one-shot CSS transitions; nothing to run while hidden */
-  });
+  els.forEach(function(el){io.observe(el);});
 })();
 </script>
 <script>
-// Hero photo toggle (click only; no auto-loop)
 (function(){
   var img=document.getElementById('heroShot');
   var badge=document.getElementById('heroBadge');
@@ -577,49 +885,50 @@ footer .top{text-decoration:none}
       img.alt=b.getAttribute('data-alt');
       if(badge){
         badge.innerHTML=b.id==='shotFold'
-          ? '<b>Folded</b> &nbsp;as a compact carry bag'
-          : '<b>Unfolded</b> &nbsp;on a standard stall hook';
+          ? '<b>Folded</b> as a compact carry bag'
+          : '<b>Unfolded</b> on a standard stall hook';
       }
     });
   });
 })();
 </script>
 <script>
-// Pause unfold video when the tab is hidden, and do not autoplay if the user prefers reduced motion
+// Scroll-triggered unfold: play once when the stage enters view; pause when the tab is hidden.
 (function(){
   var v=document.getElementById('unfoldVid');
+  var stage=document.getElementById('videoStage');
   if(!v)return;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var userPaused=false;
+  var played=false;
   v.addEventListener('pause',function(){if(!document.hidden) userPaused=true;});
   v.addEventListener('play',function(){userPaused=false;});
-  function sync(){
-    if(document.hidden || reduce){v.pause();}
-    else if(!userPaused && !reduce){v.play().catch(function(){});}
+  function onHide(){if(document.hidden) v.pause();}
+  document.addEventListener('visibilitychange',onHide);
+  if(reduce) return;
+  if('IntersectionObserver' in window && stage){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting && !played && !userPaused){
+          v.play().then(function(){played=true;}).catch(function(){});
+        } else if(!e.isIntersecting){
+          v.pause();
+        }
+      });
+    },{threshold:0.45});
+    io.observe(stage);
   }
-  document.addEventListener('visibilitychange',sync);
-  if(!reduce){v.setAttribute('autoplay','');sync();}
 })();
 </script>
 <script>
-// Patent drawing lightbox
 (function(){
   var open=document.getElementById('drawOpen');
   var lb=document.getElementById('lb');
   var close=document.getElementById('lbClose');
   if(!open||!lb)return;
   var last=null;
-  function show(){
-    last=document.activeElement;
-    lb.hidden=false;
-    lb.classList.add('on');
-    (close||lb).focus();
-  }
-  function hide(){
-    lb.classList.remove('on');
-    lb.hidden=true;
-    if(last&&last.focus)last.focus();
-  }
+  function show(){last=document.activeElement;lb.hidden=false;lb.classList.add('on');(close||lb).focus();}
+  function hide(){lb.classList.remove('on');lb.hidden=true;if(last&&last.focus)last.focus();}
   open.addEventListener('click',show);
   if(close)close.addEventListener('click',function(e){e.stopPropagation();hide();});
   lb.addEventListener('click',function(e){if(e.target===lb)hide();});
@@ -627,7 +936,6 @@ footer .top{text-decoration:none}
 })();
 </script>
 <script>
-// Signup form (Formspree)
 (function(){
   var f=document.getElementById('fofForm'); if(!f)return;
   var sel=document.getElementById('interest');
@@ -638,10 +946,8 @@ footer .top{text-decoration:none}
   var st=document.getElementById('fofStatus');
   function sync(){
     var v=sel.value;
-    var needOrg=v!=='Notify me at launch';
-    var needMsg=v==='Potential investor'||v==='Collaborator'||v==='Presentation request';
-    org.classList.toggle('on',needOrg);
-    msg.classList.toggle('on',needMsg);
+    org.classList.toggle('on',v!=='Notify me at launch');
+    msg.classList.toggle('on',v!=='Notify me at launch');
     if(v==='Notify me at launch'){subj.value='Fold-Out-Fit: Notify me at launch';btn.textContent='Join the waitlist';}
     else if(v==='Potential investor'){subj.value='Fold-Out-Fit: Potential investor';btn.textContent='Send message';}
     else if(v==='Collaborator'){subj.value='Fold-Out-Fit: Collaborator';btn.textContent='Send message';}
@@ -672,7 +978,6 @@ footer .top{text-decoration:none}
 })();
 </script>
 <script>
-// Mobile nav
 (function(){
   var b=document.getElementById('menuBtn'),u=document.getElementById('navList');if(!b||!u)return;
   b.addEventListener('click',function(){
@@ -692,7 +997,6 @@ footer .top{text-decoration:none}
 })();
 </script>
 <script>
-// Hide the mobile waitlist bar while the signup section is on screen
 (function(){
   var bar=document.getElementById('stickyCta'), target=document.getElementById('notify');
   if(!bar||!target||!('IntersectionObserver' in window))return;
