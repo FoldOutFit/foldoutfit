@@ -1,0 +1,336 @@
+/* Fold-Out-Fit — Concept C. Inventor's notebook. Written from scratch. */
+:root{
+  --paper:#efe9dc;
+  --ink:#1a1814;
+  --mute:#5c5850;
+  --rule:#c9c0b0;
+  --grid:rgba(45,70,110,.08);
+  --magenta:#c51bcc;
+  --magenta-ink:#9a149e;
+  --tape:rgba(236,206,110,.55);
+  --print:#f7f4ec;
+  --sans:"Libre Franklin", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono:"IBM Plex Mono", "ui-monospace", Menlo, Consolas, monospace;
+  --hand:"Caveat", "Segoe Script", cursive;
+  --page:980px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto}
+body{
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.55;
+  color:var(--ink);
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size:28px 28px;
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+}
+img,video{display:block;max-width:100%;height:auto}
+a{color:var(--magenta-ink)}
+a:hover{text-decoration-thickness:2px}
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+.skip{
+  position:absolute;left:12px;top:-48px;z-index:80;
+  background:var(--ink);color:var(--paper);padding:8px 12px;text-decoration:none;
+}
+.skip:focus{top:12px}
+
+/* top bar: paper, a ruled line, no glass */
+.bar{
+  border-bottom:1px solid var(--ink);
+  background:var(--paper);
+}
+.bar-inner{
+  width:min(var(--page), calc(100% - 32px));
+  margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;min-height:56px;flex-wrap:wrap;
+  padding:8px 0;
+}
+.wordmark{
+  font-weight:700;font-size:1.15rem;letter-spacing:-.01em;
+  color:var(--ink);text-decoration:none;
+}
+.wordmark:hover{color:var(--ink);text-decoration:none}
+.nav{display:none;list-style:none;gap:16px}
+.nav a{color:var(--ink);text-decoration:none;font-size:.95rem}
+.nav a:hover{text-decoration:underline}
+.menu-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:40px;height:36px;background:transparent;border:1px solid var(--ink);
+  color:var(--ink);cursor:pointer;font:inherit;
+}
+.nav.open{display:flex;flex-direction:column;width:100%;order:3;padding:4px 0 10px;gap:10px}
+
+/* writing column with a faint notebook margin */
+.page{
+  width:min(var(--page), calc(100% - 32px));
+  margin:0 auto;
+  position:relative;
+  padding:28px 0 80px;
+}
+.page::before{
+  content:"";
+  position:absolute;
+  left:-18px;top:0;bottom:0;
+  width:1px;
+  background:#d27a6c;
+  opacity:.55;
+}
+
+/* intro: not a slogan poster */
+.intro h1{
+  font-size:1.15rem;font-weight:700;
+  margin:0 0 10px;
+}
+.kicker-plain{
+  font-family:var(--mono);font-size:.78rem;
+  color:var(--mute);margin-bottom:22px;
+}
+.lede{
+  font-size:1.28rem;line-height:1.4;font-weight:500;
+  margin:0 0 16px;max-width:22em;
+}
+.intro p{max-width:38em;margin:0 0 14px;color:var(--ink)}
+.intro .quiet{color:var(--mute)}
+
+.btn{
+  display:inline-block;
+  background:var(--ink);color:var(--paper);
+  text-decoration:none;font:inherit;font-weight:600;
+  padding:10px 14px;border:1px solid var(--ink);
+  cursor:pointer;border-radius:0;
+}
+.btn:hover{background:var(--magenta-ink);border-color:var(--magenta-ink);color:var(--paper);text-decoration:none}
+.btn[disabled]{opacity:.6;cursor:wait}
+button.btn{font:inherit;font-weight:600}
+
+/* snapshot prints */
+.print{
+  --rot:0deg;
+  position:relative;
+  background:var(--print);
+  padding:8px 8px 8px;
+  box-shadow:3px 4px 0 rgba(26,24,20,.18);
+  transform:rotate(var(--rot));
+  width:min(100%, 420px);
+  margin:8px 0 28px;
+}
+.print img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;background:#ddd}
+.print figcaption{
+  font-family:var(--mono);font-size:.72rem;
+  color:var(--mute);padding:8px 4px 4px;
+}
+.tape{
+  position:absolute;z-index:2;
+  width:62px;height:18px;
+  background:var(--tape);
+  mix-blend-mode:multiply;
+  pointer-events:none;
+}
+.tape.a{top:-7px;left:14px;transform:rotate(-14deg) skewX(-6deg);width:68px;height:17px}
+.tape.b{top:-9px;right:18px;transform:rotate(11deg) skewX(4deg);width:52px;height:16px;opacity:.85}
+.tape.c{top:-8px;left:38%;transform:rotate(-3deg) skewX(-2deg);width:74px;height:19px}
+
+.shots{margin:36px 0 8px}
+.shot-row{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+
+section{scroll-margin-top:20px;padding:8px 0 12px}
+h2{
+  font-size:1.15rem;font-weight:700;
+  margin:36px 0 12px;
+  padding-top:18px;
+  border-top:1px solid var(--ink);
+}
+h2 .mono{font-family:var(--mono);font-weight:500;font-size:.8rem;color:var(--mute);margin-left:8px}
+
+.steps{list-style:none;display:grid;gap:14px;margin:8px 0 20px}
+.steps li{display:grid;grid-template-columns:2.2rem 1fr;gap:10px;align-items:start}
+.steps .n{
+  font-family:var(--mono);font-size:.85rem;color:var(--mute);padding-top:.2em
+}
+video.clip{
+  width:100%;max-width:520px;margin:10px 0 24px;
+  background:#111;border:1px solid var(--ink);
+}
+
+.plain-list{margin:8px 0 20px;padding-left:1.2em;max-width:38em}
+.plain-list li{margin:0 0 8px}
+
+/* drawings sheet */
+.sheet-wrap{position:relative;margin:18px 0 16px}
+.sheet-btn{
+  appearance:none;display:block;width:100%;
+  background:#fff;border:1px solid var(--ink);
+  padding:0;cursor:zoom-in;
+  box-shadow:3px 4px 0 rgba(26,24,20,.16);
+}
+.sheet-btn img{width:100%;height:auto}
+.notes{margin:16px 0 8px}
+.note{
+  font-family:var(--hand);font-size:1.35rem;line-height:1.25;
+  color:#1c2a4a;margin:0 0 8px;
+}
+.note svg{display:none}
+.patent-meta{
+  font-family:var(--mono);font-size:.88rem;
+  margin:8px 0 16px;color:var(--ink);
+}
+.patent-meta b{font-weight:600}
+
+.prices{margin:8px 0 20px}
+.prices p{margin:0 0 12px;max-width:38em}
+.amt{font-family:var(--mono);font-size:1.05rem}
+.notyet{
+  display:inline-block;
+  font-family:var(--mono);font-size:.78rem;
+  border:1px solid var(--ink);padding:2px 6px;
+  margin:0 0 12px;
+}
+
+form.mail{
+  display:grid;gap:12px;
+  max-width:520px;
+  margin:16px 0 8px;
+  padding:16px 16px 18px;
+  border:1px solid var(--ink);
+  background:rgba(255,255,255,.28);
+  position:relative;
+}
+.mail label{display:grid;gap:4px;font-size:.92rem}
+.mail .hint{font-weight:400;color:var(--mute);font-size:.85rem}
+.mail input,.mail select,.mail textarea{
+  font:inherit;font-size:1rem;color:var(--ink);
+  background:#fff;border:1px solid var(--ink);
+  padding:8px 10px;width:100%;border-radius:0;
+}
+.mail textarea{min-height:100px;resize:vertical}
+.mail input:focus,.mail select:focus,.mail textarea:focus{
+  outline:2px solid var(--ink);outline-offset:1px;
+}
+.mail .row{display:grid;gap:12px}
+.mail .opt{display:none}
+.mail .opt.on{display:grid}
+.mail .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.mail .fine{font-size:.82rem;color:var(--mute)}
+.mail .status{display:none;padding:8px 10px;font-size:.95rem;border:1px solid var(--ink)}
+.mail .status.ok{display:block;background:#e7f0d8}
+.mail .status.err{display:block;background:#f6d6d0}
+
+.contact p{margin:0 0 8px}
+.who{margin:12px 0}
+.who b{display:block}
+.who span{color:var(--mute);font-size:.95rem}
+.links a{display:inline;margin-right:14px}
+
+.colophon{
+  margin-top:48px;padding-top:16px;
+  border-top:1px solid var(--ink);
+  font-size:.92rem;
+}
+.colophon .made{margin:0 0 12px;font-size:1rem}
+.colophon .legal{font-family:var(--mono);font-size:.75rem;color:var(--mute);margin:0 0 12px}
+.social{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 12px}
+.social a{color:var(--ink);text-decoration:none;font-size:.92rem}
+.social a:hover{text-decoration:underline;color:var(--magenta-ink)}
+
+.lightbox{
+  position:fixed;inset:0;background:rgba(26,24,20,.92);
+  display:none;align-items:center;justify-content:center;
+  z-index:90;padding:20px;cursor:zoom-out;
+}
+.lightbox.on{display:flex}
+.lightbox img{max-height:94vh;width:auto;max-width:100%;background:#fff;cursor:default}
+.lightbox .lb-close{
+  position:absolute;top:12px;right:12px;width:44px;height:44px;
+  background:transparent;border:1px solid #fff;color:#fff;cursor:pointer;font-size:1.4rem;
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important}
+}
+
+/* desktop: uneven, writing + print, notes around the sheet */
+@media (min-width:840px){
+  body{font-size:18px}
+  .page{padding:40px 0 96px}
+  .page::before{left:-36px}
+  .bar-inner{width:min(var(--page), calc(100% - 64px))}
+  .page{width:min(var(--page), calc(100% - 64px))}
+  .menu-btn{display:none}
+  .nav{display:flex;flex-direction:row}
+  .intro{
+    display:grid;
+    grid-template-columns: .92fr 1.08fr;
+    gap:8px 36px;
+    align-items:start;
+    min-height:0;
+  }
+  .intro .print{
+    width:100%;
+    max-width:none;
+    margin:8px 0 0 -8px;
+    --rot:-1.4deg;
+  }
+  .intro .prose{padding-top:8px}
+  .lede{font-size:1.38rem}
+  .shot-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:28px 40px;
+    align-items:start;
+    margin:8px 0 12px;
+  }
+  .shot-row .print:nth-child(1){--rot:1.6deg;margin-top:8px;width:92%}
+  .shot-row .print:nth-child(2){--rot:-2deg;margin-top:36px;margin-left:12px;width:88%;justify-self:end}
+  video.clip{max-width:560px}
+
+  /* handwritten notes sit in the margins, beside the sheet */
+  .sheet-wrap{
+    display:grid;
+    grid-template-columns: 158px 1fr 158px;
+    grid-template-rows: 1fr 1fr 1fr;
+    column-gap: 10px;
+    margin:24px -170px 36px;
+    align-items:center;
+  }
+  .sheet-btn{grid-column:2;grid-row:1 / span 3}
+  .notes.desk{display:contents}
+  .notes.mobile{display:none}
+  .note{
+    position:static;
+    font-size:1.4rem;
+    max-width:none;
+    margin:0;
+    align-self:center;
+  }
+  .note svg{
+    display:block;position:relative;pointer-events:none;overflow:visible;
+    margin-top:2px;
+  }
+  .n1{grid-column:1;grid-row:1}
+  .n1 svg{width:70px;height:28px}
+  .n2{grid-column:3;grid-row:1;text-align:right}
+  .n2 svg{margin-left:auto;width:64px;height:28px}
+  .n3{grid-column:1;grid-row:2}
+  .n3 svg{width:58px;height:24px}
+  .n4{grid-column:3;grid-row:2;text-align:right}
+  .n4 svg{margin-left:auto;width:70px;height:24px}
+  .n5{grid-column:1;grid-row:3}
+  .mail .row{grid-template-columns:1fr 1fr}
+  .colophon-row{display:flex;justify-content:space-between;gap:24px;align-items:end}
+}
+
+@media (max-width:839px){
+  .page::before{left:-12px}
+  .intro .print{--rot:.7deg;width:min(100%, 360px);margin-left:auto;margin-right:auto}
+  .notes.desk{display:none}
+  .notes.mobile{display:block}
+  .print img{max-height:62vh;object-position:50% 20%}
+}
