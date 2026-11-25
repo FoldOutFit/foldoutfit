@@ -35,6 +35,7 @@
     setThemeDark();
     var delay = reduce ? 0 : 900;
     setTimeout(cleanup, delay);
+    syncShelfVid();
   }
 
   function chosenBase(){
@@ -88,14 +89,16 @@
   if (skipBtn) skipBtn.addEventListener('click', endIntro);
 
   document.addEventListener('visibilitychange', function(){
-    var unfold = document.getElementById('unfoldVid');
     if (document.hidden) {
       if (vid && introActive && !ending) {
         try { vid.pause(); } catch (e) {}
       }
-      if (unfold) unfold.pause();
-    } else if (introActive && !reduce && !ending && vid) {
-      tryPlay();
+      syncShelfVid();
+    } else {
+      if (introActive && !reduce && !ending && vid) {
+        tryPlay();
+      }
+      syncShelfVid();
     }
   });
 
@@ -133,6 +136,42 @@
   window.addEventListener('scroll', requestInd, { passive: true });
   window.addEventListener('resize', requestInd, { passive: true });
   requestInd();
+
+  /* shelf-1 product video: muted loop, play only when in view, after the intro, and not reduced-motion */
+  var shelfVid = document.getElementById('unfoldVid');
+  var shelfInView = false;
+  function syncShelfVid(){
+    if (!shelfVid) return;
+    var should = !reduce && !document.hidden && !introActive && shelfInView;
+    if (should) {
+      shelfVid.muted = true;
+      shelfVid.defaultMuted = true;
+      shelfVid.playsInline = true;
+      var p = shelfVid.play();
+      if (p && p.then) p.catch(function(){ shelfVid.controls = true; });
+    } else {
+      try { shelfVid.pause(); } catch (e) {}
+    }
+  }
+  if (shelfVid) {
+    shelfVid.muted = true;
+    shelfVid.loop = true;
+    shelfVid.playsInline = true;
+    shelfVid.setAttribute('playsinline', '');
+    shelfVid.setAttribute('webkit-playsinline', '');
+    if (reduce) shelfVid.controls = true;
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          shelfInView = en.isIntersecting && en.intersectionRatio >= 0.15;
+        });
+        syncShelfVid();
+      }, { threshold: [0, 0.15, 0.4, 0.75] });
+      io.observe(shelfVid);
+    } else {
+      shelfInView = true;
+    }
+  }
 
   /* drawings lightbox */
   var open = document.getElementById('drawOpen');
