@@ -33,7 +33,7 @@
     }
     document.body.classList.remove('intro-lock');
     setThemeDark();
-    var delay = reduce ? 0 : 1000;
+    var delay = reduce ? 0 : 900;
     setTimeout(cleanup, delay);
   }
 

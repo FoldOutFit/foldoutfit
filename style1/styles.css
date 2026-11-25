@@ -50,11 +50,11 @@ a:hover{color:#f0d36a}
 .intro.is-done{
   pointer-events:none;
   opacity:0;
-  transition:opacity .95s ease;
+  transition:opacity .85s ease;
 }
 .intro.is-done video{
   transform:scale(1.12);
-  transition:transform .95s cubic-bezier(.2,.7,.2,1);
+  transition:transform .85s cubic-bezier(.2,.7,.2,1);
 }
 .skip-intro{
   position:absolute;right:16px;bottom:16px;z-index:6;
