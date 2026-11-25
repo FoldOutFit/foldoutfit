@@ -31,104 +31,30 @@ a:hover{color:#f0d36a}
 .skip{position:absolute;left:12px;top:-48px;z-index:80;background:#fff;color:#111;padding:8px 12px;text-decoration:none}
 .skip:focus{top:12px}
 
-/* ---- Intro ---- */
+/* ---- Intro (video, then hands off to the shelves) ---- */
 .intro{
   position:fixed;inset:0;z-index:50;
   background:#fff;
   display:grid;place-items:center;
-  perspective:1400px;
   overflow:hidden;
+}
+.intro video{
+  width:100%;height:100%;
+  max-width:none;max-height:none;
+  object-fit:contain;
+  background:#fff;
+  transform:scale(1);
+  transform-origin:center center;
 }
 .intro.is-done{
   pointer-events:none;
   opacity:0;
   transition:opacity .7s ease;
 }
-.stage{width:100%;height:100%;display:grid;place-items:center;perspective:1400px}
-.rig{
-  position:relative;
-  width:min(48vw, 260px);
-  transform-style:preserve-3d;
-  transform:scale(.18) rotateY(-140deg);
-  opacity:0;
-  will-change:transform,opacity,width;
-  transition:transform 1.15s cubic-bezier(.2,.7,.2,1), opacity .55s ease, width 1.2s cubic-bezier(.2,.7,.2,1);
+.intro.is-done video{
+  transform:scale(1.12);
+  transition:transform .8s cubic-bezier(.2,.7,.2,1);
 }
-.intro.spin .rig{
-  transform:scale(1) rotateY(0deg);
-  opacity:1;
-}
-.intro.grow .rig{
-  width:min(62vw, 400px);
-  transform:scale(1) rotateY(0deg);
-  opacity:1;
-}
-.intro.open .rig,
-.intro.drop-1 .rig,
-.intro.drop-2 .rig,
-.intro.drop-3 .rig{
-  width:min(48vw, calc((100svh - 36px) * 0.438));
-  transform:scale(1) rotateY(0);
-  opacity:1;
-}
-.intro.enter .rig{
-  width:min(140vw, 980px);
-  transform:scale(1.15) translateY(-8%);
-  opacity:0;
-  transition:transform .9s cubic-bezier(.2,.7,.2,1), opacity .8s ease, width .9s ease;
-}
-
-.piece{width:100%;height:auto;display:block}
-.closed{
-  position:relative;z-index:2;
-  filter:drop-shadow(0 18px 30px rgba(0,0,0,.22));
-  transition:opacity .45s ease;
-}
-.intro.open .closed,
-.intro.drop-1 .closed,
-.intro.drop-2 .closed,
-.intro.drop-3 .closed,
-.intro.enter .closed{
-  opacity:0;
-  position:absolute;width:100%;height:0;overflow:hidden;
-}
-
-.open-assembly{
-  position:absolute;left:0;right:0;top:0;
-  display:flex;flex-direction:column;align-items:center;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .4s ease;
-  filter:drop-shadow(0 22px 32px rgba(0,0,0,.28));
-}
-.intro.open .open-assembly,
-.intro.drop-1 .open-assembly,
-.intro.drop-2 .open-assembly,
-.intro.drop-3 .open-assembly,
-.intro.enter .open-assembly{
-  position:relative;left:auto;right:auto;top:auto;
-  opacity:1;
-}
-.open-assembly .lid{width:100%;position:relative;z-index:5}
-.open-assembly .sh{
-  width:100%;
-  transform:translateY(-70%);
-  opacity:0;
-  transition:transform .7s cubic-bezier(.2,.8,.2,1), opacity .4s ease;
-}
-.intro.drop-1 .sh1,
-.intro.drop-2 .sh1,
-.intro.drop-3 .sh1,
-.intro.enter .sh1,
-.intro.drop-2 .sh2,
-.intro.drop-3 .sh2,
-.intro.enter .sh2,
-.intro.drop-3 .sh3,
-.intro.enter .sh3{
-  transform:translateY(0);
-  opacity:1;
-}
-
 .skip-intro{
   position:absolute;right:16px;bottom:16px;z-index:6;
   font:inherit;font-size:.85rem;font-weight:600;
@@ -340,7 +266,9 @@ form.mail{
 video.clip{width:min(100%, 420px);margin:14px 0;background:#000;border:1px solid rgba(255,255,255,.12)}
 
 @media (prefers-reduced-motion:reduce){
-  .rig,.open-assembly .sh,.intro.is-done,.intro.enter .rig{transition:none}
+  .intro{display:none!important}
+  body.intro-lock{overflow:auto;height:auto}
+  .intro.is-done,.intro.is-done video{transition:none}
 }
 
 @media (min-width:800px){
@@ -353,11 +281,7 @@ video.clip{width:min(100%, 420px);margin:14px 0;background:#000;border:1px solid
 @media (max-width:799px){
   .side{width:42px}
   .side-l,.side-r{transform:none}
-  .inner{width:calc(100% - 56px);padding:76px 0 130px}
-  .rig{width:min(70vw, 230px)}
-  .intro.grow .rig{width:min(78vw, 300px)}
-  .intro.open .rig,
-  .intro.drop-1 .rig,
-  .intro.drop-2 .rig,
-  .intro.drop-3 .rig{width:min(72vw, 320px)}
+  .inner{width:calc(100% - 56px);padding:76px 0 160px}
+  .shot{width:min(100%, 300px)}
+  .shot img{aspect-ratio:auto;object-fit:contain;max-height:min(42vh, 340px);height:auto}
 }

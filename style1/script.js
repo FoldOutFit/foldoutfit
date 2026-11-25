@@ -1,105 +1,103 @@
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var intro = document.getElementById('intro');
+  var vid = document.getElementById('introVid');
   var skipBtn = document.getElementById('skipIntro');
   var introActive = true;
-  var raf = 0;
-  var t0 = 0;
-  var elapsed = 0;
-  var lastPhase = '';
+  var ending = false;
+  var usedFallback = false;
 
-  var phases = [
-    { at: 80, name: 'spin' },
-    { at: 1450, name: 'grow' },
-    { at: 2500, name: 'open' },
-    { at: 3050, name: 'drop-1' },
-    { at: 3750, name: 'drop-2' },
-    { at: 4450, name: 'drop-3' },
-    { at: 5400, name: 'enter' }
-  ];
-  var END = 6400;
-
-  function setPhase(name){
-    if (!intro || lastPhase === name) return;
-    lastPhase = name;
-    intro.classList.remove('spin','grow','open','drop-1','drop-2','drop-3','enter');
-    if (name) intro.classList.add(name);
-  }
-
-  function apply(ms){
-    var name = '';
-    for (var i=0;i<phases.length;i++){
-      if (ms >= phases[i].at) name = phases[i].name;
-    }
-    setPhase(name);
-  }
-
-  function endIntro(){
-    introActive = false;
-    if (raf) { cancelAnimationFrame(raf); raf = 0; }
-    if (intro) {
-      intro.classList.add('is-done');
-      intro.setAttribute('aria-hidden', 'true');
-    }
-    document.body.classList.remove('intro-lock');
+  function setThemeDark(){
     document.documentElement.style.background = '#0e0e0e';
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', '#0e0e0e');
   }
 
-  function tick(now){
-    raf = 0;
-    if (!introActive) return;
-    if (document.hidden) return;
-    elapsed = now - t0;
-    apply(elapsed);
-    if (elapsed >= END) { endIntro(); return; }
-    raf = requestAnimationFrame(tick);
+  function cleanup(){
+    if (vid && vid.parentNode) vid.remove();
+    if (intro && intro.parentNode) intro.remove();
+    vid = null;
+    intro = null;
+  }
+
+  function endIntro(){
+    if (ending) return;
+    ending = true;
+    introActive = false;
+    if (vid) {
+      try { vid.pause(); } catch (e) {}
+    }
+    if (intro) {
+      intro.classList.add('is-done');
+      intro.setAttribute('aria-hidden', 'true');
+    }
+    document.body.classList.remove('intro-lock');
+    setThemeDark();
+    var delay = reduce ? 0 : 800;
+    setTimeout(cleanup, delay);
+  }
+
+  function chosenBase(){
+    var phone = window.matchMedia('(max-width: 799px)').matches;
+    return phone ? 'img/intro-phone' : 'img/intro-desktop';
+  }
+
+  function preferWebm(){
+    if (!vid) return false;
+    var t = vid.canPlayType('video/webm; codecs="vp9"');
+    return t === 'probably' || t === 'maybe';
+  }
+
+  function assignSrc(useWebm){
+    vid.src = chosenBase() + (useWebm ? '.webm' : '.mp4');
+    vid.load();
+  }
+
+  function tryPlay(){
+    if (!vid || ending) return;
+    var p = vid.play();
+    if (p && p.then) p.catch(function(){ endIntro(); });
   }
 
   function startIntro(){
-    introActive = true;
+    if (reduce || !vid) { endIntro(); return; }
     document.body.classList.add('intro-lock');
-    if (reduce) { endIntro(); return; }
-    t0 = performance.now() - elapsed;
-    raf = requestAnimationFrame(tick);
-  }
+    vid.muted = true;
+    vid.defaultMuted = true;
+    vid.playsInline = true;
+    vid.setAttribute('playsinline', '');
+    vid.setAttribute('webkit-playsinline', '');
 
-  document.addEventListener('visibilitychange', function(){
-    if (document.hidden) {
-      if (raf) { cancelAnimationFrame(raf); raf = 0; }
-      var vid = document.getElementById('unfoldVid');
-      if (vid) vid.pause();
-    } else if (introActive && !reduce) {
-      t0 = performance.now() - elapsed;
-      if (!raf) raf = requestAnimationFrame(tick);
-    }
-  });
+    var webm = preferWebm();
+    assignSrc(webm);
+
+    vid.addEventListener('ended', endIntro);
+    vid.addEventListener('error', function(){
+      if (webm && !usedFallback) {
+        usedFallback = true;
+        assignSrc(false);
+        tryPlay();
+        return;
+      }
+      endIntro();
+    });
+
+    tryPlay();
+  }
 
   if (skipBtn) skipBtn.addEventListener('click', endIntro);
 
-  window.__setIntroPose = function(transform){
-    introActive = false;
-    if (raf) { cancelAnimationFrame(raf); raf = 0; }
-    document.body.classList.add('intro-lock');
-    if (intro) { intro.classList.remove('is-done','spin','grow','open','drop-1','drop-2','drop-3','enter'); intro.setAttribute('aria-hidden','false'); }
-    var rig = document.getElementById('rig');
-    if (rig) { rig.style.transition = 'none'; rig.style.transform = transform; rig.style.opacity = '1'; }
-    document.documentElement.style.background = '#fff';
-  };
-
-  window.__setIntro = function(name){
-    introActive = false;
-    if (raf) { cancelAnimationFrame(raf); raf = 0; }
-    if (name === 'done') { endIntro(); return; }
-    document.body.classList.add('intro-lock');
-    if (intro) {
-      intro.classList.remove('is-done');
-      intro.setAttribute('aria-hidden', 'false');
+  document.addEventListener('visibilitychange', function(){
+    var unfold = document.getElementById('unfoldVid');
+    if (document.hidden) {
+      if (vid && introActive && !ending) {
+        try { vid.pause(); } catch (e) {}
+      }
+      if (unfold) unfold.pause();
+    } else if (introActive && !reduce && !ending && vid) {
+      tryPlay();
     }
-    document.documentElement.style.background = '#fff';
-    setPhase(name);
-  };
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', startIntro);

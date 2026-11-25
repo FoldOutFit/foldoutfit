@@ -19,25 +19,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/bag-closed.png" fetchpriority="high">
+<link rel="preload" as="image" href="img/intro-poster.jpg">
+<link rel="preload" as="video" href="img/intro-desktop.mp4" type="video/mp4" media="(min-width: 800px)">
+<link rel="preload" as="video" href="img/intro-phone.mp4" type="video/mp4" media="(max-width: 799px)">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="intro-lock">
 <a class="skip" href="#shelf1">Skip to content</a>
 
 <div class="intro" id="intro" aria-hidden="false">
-  <div class="stage">
-    <div class="rig" id="rig">
-      <img class="piece closed" src="img/bag-closed.png" width="560" height="907" alt="Fold-Out-Fit zipped closed" fetchpriority="high">
-      <div class="open-assembly" aria-hidden="true">
-        <img class="lid" src="img/lid.png" width="448" height="188" alt="">
-        <img class="sh sh1" src="img/shelf1.png" width="448" height="430" alt="">
-        <img class="sh sh2" src="img/shelf2.png" width="448" height="265" alt="">
-        <img class="sh sh3" src="img/shelf3.png" width="448" height="206" alt="">
-      </div>
-    </div>
-  </div>
-  <button type="button" class="skip-intro" id="skipIntro">Skip</button>
+  <video id="introVid" muted playsinline webkit-playsinline autoplay preload="auto" poster="img/intro-poster.jpg" aria-label="Fold-Out-Fit spins in, opens, and drops into three shelves"></video>
+  <button type="button" class="skip-intro" id="skipIntro">Skip intro</button>
 </div>
 
 <header class="bar">
