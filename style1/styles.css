@@ -12,17 +12,19 @@
   --wall:#beb8ac;
   --display:"Syne","Avenir Next","Segoe UI",sans-serif;
   --body:"Manrope","Segoe UI",system-ui,sans-serif;
+  --bar-h:7.25rem;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:auto}
 body{
   font-family:var(--body);
-  font-size:17px;line-height:1.55;
+  font-size:18px;line-height:1.7;
   color:var(--paper);
   background:#0e0e0e;
   -webkit-font-smoothing:antialiased;
 }
 body.intro-lock{overflow:hidden;height:100%;}
+body.intro-lock .tabs{visibility:hidden;pointer-events:none}
 img,video{display:block;max-width:100%;height:auto}
 a{color:var(--gold-2)}
 a:hover{color:#f0d36a}
@@ -78,22 +80,45 @@ a:hover{color:#f0d36a}
 }
 .logo{display:inline-flex;align-items:center;gap:8px;color:var(--paper);text-decoration:none;font-family:var(--display);font-weight:700;letter-spacing:-.02em}
 .logo svg{width:16px;height:26px}
-.indicator{
-  font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;
+.tabs{
+  display:flex;
+  justify-content:center;
+  align-items:stretch;
+  gap:4px 6px;
+  width:min(1400px, 92vw, calc(100% - 16px));
+  margin:0 auto;
+  padding:0 4px 8px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:10px 16px;
+  font-family:var(--display);
+  font-weight:700;
+  font-size:.95rem;
+  letter-spacing:.02em;
   color:var(--mute);
-  display:flex;align-items:center;gap:8px;
+  text-decoration:none;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
 }
-.indicator strong{color:var(--gold-2);font-weight:700;font-size:1rem;letter-spacing:0;text-transform:none}
-.dots{display:flex;gap:5px}
-.dots span{
-  width:7px;height:7px;border-radius:50%;
-  background:rgba(255,255,255,.25);
+.tabs a:hover{color:var(--paper)}
+.tabs a.is-active,
+.tabs a[aria-current="true"]{
+  color:var(--gold-2);
+  border-bottom-color:var(--gold);
 }
-.dots span.on{background:var(--gold)}
 
 /* ---- Compartments ---- */
 .sep{
-  height:22vh;min-height:120px;
+  height:26vh;min-height:160px;
   background:var(--rail);
   position:relative;
   overflow:hidden;
@@ -116,12 +141,20 @@ a:hover{color:#f0d36a}
 }
 .sep-label{
   position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  font-family:var(--display);font-size:.75rem;letter-spacing:.16em;
-  text-transform:uppercase;color:rgba(255,255,255,.28);
+  width:min(90%, 22em);
+  margin:0;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:clamp(1.55rem, 4.4vw, 2.8rem);
+  letter-spacing:-.03em;
+  line-height:1.15;
+  text-align:center;
+  color:var(--paper);
   pointer-events:none;
 }
+.sep-dash{color:var(--gold);font-weight:800;padding:0 .12em}
 
-.shelf{scroll-margin-top:56px}
+.shelf{scroll-margin-top:var(--bar-h)}
 .compartment{
   position:relative;
   min-height:100svh;
@@ -164,30 +197,30 @@ a:hover{color:#f0d36a}
   position:relative;z-index:5;
   width:min(1400px, 92vw, calc(100% - 72px));
   margin:0 auto;
-  padding:88px 0 140px;
+  padding:96px 0 160px;
 }
 
 h1,h2{
   font-family:var(--display);font-weight:750;
-  letter-spacing:-.03em;line-height:1.08;
+  letter-spacing:-.03em;line-height:1.15;
 }
-h1{font-size:clamp(2rem, 5.4vw, 3.2rem);margin:0 0 16px;max-width:14ch}
-h2{font-size:clamp(1.5rem, 4vw, 2.1rem);margin:0 0 12px}
-.lead{font-size:1.12rem;max-width:34em;margin:0 0 16px;color:#ece8e0}
-.inner p{margin:0 0 14px;max-width:38em}
-.inner ul{margin:0 0 16px;padding-left:1.15em;max-width:38em}
-.inner li{margin:0 0 8px}
+h1{font-size:clamp(2rem, 5.4vw, 3.2rem);margin:0 0 18px;max-width:16ch}
+h2{font-size:clamp(1.5rem, 4vw, 2.1rem);margin:0 0 14px}
+.lead{font-size:1.15rem;max-width:36em;margin:0 0 20px;color:#ece8e0;line-height:1.7}
+.inner p{margin:0 0 18px;max-width:42em}
+.inner ul{margin:0 0 20px;padding-left:1.15em;max-width:42em}
+.inner li{margin:0 0 10px}
 .copy p,.copy ul,.copy ol,.copy .steps li{max-width:none}
-.k.spaced{margin-top:22px}
-.k{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 10px;font-weight:700}
-.steps{list-style:none;padding:0;margin:16px 0 22px;display:grid;gap:12px}
-.steps li{display:grid;grid-template-columns:2rem 1fr;gap:10px;max-width:36em}
+.k.spaced{margin-top:28px}
+.k{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 12px;font-weight:700}
+.steps{list-style:none;padding:0;margin:20px 0 28px;display:grid;gap:16px}
+.steps li{display:grid;grid-template-columns:2rem 1fr;gap:12px;max-width:40em}
 .steps .n{color:var(--gold);font-family:var(--display);font-weight:700}
 
-.split{display:grid;gap:28px;align-items:start}
+.split{display:grid;gap:32px;align-items:start}
 .points{
-  list-style:none;padding:0;margin:8px 0 0;
-  display:grid;gap:14px;max-width:none;
+  list-style:none;padding:0;margin:12px 0 0;
+  display:grid;gap:16px;max-width:none;
 }
 .points li{
   position:relative;
@@ -246,7 +279,7 @@ button.btn{font:inherit;font-weight:700}
   padding:2px 8px;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
   margin:0 0 14px;
 }
-.prices{display:grid;gap:18px;margin:8px 0 16px}
+.prices{display:grid;gap:24px;margin:12px 0 22px}
 .amt{font-family:var(--display);font-weight:750;font-size:clamp(2.2rem, 8vw, 3.2rem);letter-spacing:-.04em;line-height:1}
 .amt small{font-size:1rem;font-weight:600;color:var(--mute)}
 
@@ -256,10 +289,10 @@ button.btn{font:inherit;font-weight:700}
 .patent-meta b{color:var(--paper)}
 
 form.mail{
-  display:grid;gap:12px;
+  display:grid;gap:16px;
   max-width:520px;
-  margin:16px 0 8px;
-  padding:16px;
+  margin:20px 0 8px;
+  padding:20px;
   background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.14);
   position:relative;
@@ -341,16 +374,17 @@ video.clip{width:min(100%, 420px);margin:14px 0;background:#000;border:1px solid
 }
 
 @media (min-width:800px){
-  body{font-size:18px}
-  .inner{width:min(1400px, 92vw, calc(100% - 112px));padding:96px 0 160px}
-  #shelf3 .inner{padding-top:72px;padding-bottom:160px}
+  body{font-size:19px}
+  :root{--bar-h:7.25rem}
+  .inner{width:min(1400px, 92vw, calc(100% - 112px));padding:104px 0 180px}
+  #shelf3 .inner{padding-top:88px;padding-bottom:180px}
   .mail .row{grid-template-columns:1fr 1fr}
 }
 @media (min-width:900px){
-  .split{grid-template-columns:1fr 1fr;gap:40px 56px}
+  .split{grid-template-columns:1fr 1fr;gap:48px 72px}
   .split-top{align-items:start}
   .split:not(.split-top){align-items:center}
-  .prices{grid-template-columns:1fr;gap:22px}
+  .prices{grid-template-columns:1fr;gap:28px}
 }
 @media (max-width:799px){
   .side{width:42px}
@@ -364,34 +398,33 @@ video.clip{width:min(100%, 420px);margin:14px 0;background:#000;border:1px solid
 
 /* ---- Shelf 1: fill the compartment (homepage problem + audience) ---- */
 #shelf1 .shelf1-inner{
-  min-height:100svh;
   box-sizing:border-box;
   display:flex;
-  padding-top:80px;
-  padding-bottom:128px;
+  padding-top:88px;
+  padding-bottom:160px;
 }
-#shelf1 h1{font-size:clamp(1.7rem, 3.2vw, 2.45rem);margin:0 0 0;max-width:16ch}
+#shelf1 h1{font-size:clamp(1.85rem, 3.4vw, 2.7rem);margin:0 0 6px;max-width:16ch}
 #shelf1 .s1-sub,
 #shelf1 .s1-block h2{
-  font-size:clamp(1.15rem, 2vw, 1.4rem);
-  margin:0 0 8px;
+  font-size:clamp(1.25rem, 2.2vw, 1.55rem);
+  margin:0 0 12px;
 }
-#shelf1 .s1-block p{margin:0 0 10px}
+#shelf1 .s1-block p{margin:0 0 16px}
 #shelf1 .pains,
 #shelf1 .audience{
   list-style:none;
   padding:0;
   margin:0;
   display:grid;
-  gap:10px;
+  gap:16px;
   max-width:none;
 }
 #shelf1 .pains li,
 #shelf1 .audience li{margin:0;max-width:none}
 #shelf1 .pains li{
   display:grid;
-  grid-template-columns:2.1rem 1fr;
-  gap:8px;
+  grid-template-columns:2.4rem 1fr;
+  gap:12px;
   align-items:start;
 }
 #shelf1 .pains .n{
@@ -415,39 +448,37 @@ video.clip{width:min(100%, 420px);margin:14px 0;background:#000;border:1px solid
 #shelf1 .pains p,
 #shelf1 .audience p{
   margin:0;
-  font-size:.9rem;
-  line-height:1.4;
+  font-size:1rem;
+  line-height:1.65;
   color:#d4d0c8;
 }
-#shelf1 .points{margin:0;gap:8px}
+#shelf1 .points{margin:4px 0 0;gap:16px}
 #shelf1 .audience{
   grid-template-columns:1fr;
-  gap:8px;
+  gap:16px;
 }
 #shelf1 .audience li{
-  padding:8px 10px;
+  padding:16px 18px;
   background:rgba(255,255,255,.05);
   border:1px solid rgba(255,255,255,.1);
 }
 
 @media (min-width:900px){
   #shelf1 .shelf1-inner{
-    min-height:100svh;
-    padding-top:68px;
-    padding-bottom:96px;
+    padding-top:88px;
+    padding-bottom:160px;
   }
   #shelf1 .shelf1-grid{
     flex:1;
     display:grid;
     grid-template-columns:1.15fr 1fr;
-    grid-template-rows:1fr auto;
+    grid-template-rows:auto auto;
     grid-template-areas:
       "video main"
       "audience audience";
-    gap:18px 40px;
+    gap:32px 56px;
     align-items:stretch;
     width:100%;
-    min-height:0;
   }
   #shelf1 .media-fill{
     grid-area:video;
@@ -461,7 +492,7 @@ video.clip{width:min(100%, 420px);margin:14px 0;background:#000;border:1px solid
     flex:1;
     width:100%;
     height:auto;
-    min-height:0;
+    min-height:400px;
     aspect-ratio:auto;
     object-fit:cover;
     background:#beb8ac;
@@ -471,21 +502,21 @@ video.clip{width:min(100%, 420px);margin:14px 0;background:#000;border:1px solid
     grid-area:main;
     display:flex;
     flex-direction:column;
-    justify-content:space-between;
-    gap:16px;
+    justify-content:flex-start;
+    gap:28px;
     min-height:0;
-    height:100%;
   }
   #shelf1 .s1-audience{grid-area:audience}
   #shelf1 .audience{
     grid-template-columns:1fr 1fr 1fr;
-    gap:14px;
+    gap:22px;
   }
-  #shelf1 .audience li{padding:12px 14px}
+  #shelf1 .audience li{padding:20px 20px}
 }
 @media (max-width:899px){
-  #shelf1 .shelf1-inner{min-height:0;padding-top:76px;padding-bottom:160px}
-  #shelf1 .shelf1-grid{display:flex;flex-direction:column;gap:22px;width:100%}
+  :root{--bar-h:7.5rem}
+  #shelf1 .shelf1-inner{min-height:0;padding-top:80px;padding-bottom:160px}
+  #shelf1 .shelf1-grid{display:flex;flex-direction:column;gap:28px;width:100%}
   #shelf1 .media-fill{height:auto}
   #shelf1 .media-fill video{
     aspect-ratio:16/9;
@@ -493,5 +524,5 @@ video.clip{width:min(100%, 420px);margin:14px 0;background:#000;border:1px solid
     object-fit:contain;
     background:#000;
   }
-  #shelf1 .shelf1-copy{display:flex;flex-direction:column;gap:22px}
+  #shelf1 .shelf1-copy{display:flex;flex-direction:column;gap:28px}
 }

@@ -42,21 +42,20 @@
       </svg>
       Fold-Out-Fit
     </a>
-    <div class="indicator" id="indicator" aria-live="polite">
-      <span>Shelf</span> <strong id="shelfNum">1</strong> <span>/ 3</span>
-      <div class="dots" aria-hidden="true">
-        <span class="on" data-d="1"></span>
-        <span data-d="2"></span>
-        <span data-d="3"></span>
-      </div>
-    </div>
   </div>
+  <nav class="tabs" id="shelfTabs" aria-label="Shelves">
+    <a href="#shelf1" data-n="1" aria-current="true">The Basics</a>
+    <a href="#shelf2" data-n="2">The Details</a>
+    <a href="#shelf3" data-n="3">The Future</a>
+  </nav>
 </header>
 
 <main>
-  <div class="sep" aria-hidden="true"><div class="sep-body"></div><div class="sep-front"></div><div class="sep-label">Shelf 1</div></div>
-
-  <section class="shelf" id="shelf1" data-n="1">
+  <section class="shelf" id="shelf1" data-n="1" aria-labelledby="label1">
+    <div class="sep">
+      <div class="sep-body"></div><div class="sep-front"></div>
+      <p class="sep-label" id="label1">Shelf 1 <span class="sep-dash">—</span> The Basics</p>
+    </div>
     <div class="compartment">
       <div class="side side-l" aria-hidden="true"></div>
       <div class="side side-r" aria-hidden="true"></div>
@@ -136,9 +135,11 @@
     </div>
   </section>
 
-  <div class="sep" aria-hidden="true"><div class="sep-body"></div><div class="sep-front"></div><div class="sep-label">Shelf 2</div></div>
-
-  <section class="shelf" id="shelf2" data-n="2">
+  <section class="shelf" id="shelf2" data-n="2" aria-labelledby="label2">
+    <div class="sep">
+      <div class="sep-body"></div><div class="sep-front"></div>
+      <p class="sep-label" id="label2">Shelf 2 <span class="sep-dash">—</span> The Details</p>
+    </div>
     <div class="compartment">
       <div class="side side-l" aria-hidden="true"></div>
       <div class="side side-r" aria-hidden="true"></div>
@@ -171,9 +172,11 @@
     </div>
   </section>
 
-  <div class="sep" aria-hidden="true"><div class="sep-body"></div><div class="sep-front"></div><div class="sep-label">Shelf 3</div></div>
-
-  <section class="shelf" id="shelf3" data-n="3">
+  <section class="shelf" id="shelf3" data-n="3" aria-labelledby="label3">
+    <div class="sep">
+      <div class="sep-body"></div><div class="sep-front"></div>
+      <p class="sep-label" id="label3">Shelf 3 <span class="sep-dash">—</span> The Future</p>
+    </div>
     <div class="compartment">
       <div class="side side-l" aria-hidden="true"></div>
       <div class="side side-r" aria-hidden="true"></div>
