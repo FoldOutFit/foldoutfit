@@ -8,9 +8,9 @@
   var usedFallback = false;
 
   function setThemeDark(){
-    document.documentElement.style.background = '#2a2a2c';
+    document.documentElement.style.background = '#0e0e0e';
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', '#2a2a2c');
+    if (meta) meta.setAttribute('content', '#0e0e0e');
   }
 
   function cleanup(){
@@ -33,7 +33,7 @@
     }
     document.body.classList.remove('intro-lock');
     setThemeDark();
-    var delay = reduce ? 0 : 800;
+    var delay = reduce ? 0 : 1000;
     setTimeout(cleanup, delay);
   }
 
