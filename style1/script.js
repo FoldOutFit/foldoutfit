@@ -8,9 +8,9 @@
   var usedFallback = false;
 
   function setThemeDark(){
-    document.documentElement.style.background = '#0e0e0e';
+    document.documentElement.style.background = '#2a2a2c';
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', '#0e0e0e');
+    if (meta) meta.setAttribute('content', '#2a2a2c');
   }
 
   function cleanup(){

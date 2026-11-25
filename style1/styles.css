@@ -6,9 +6,12 @@
   --mute:#c4c0b8;
   --gold:#c89612;
   --gold-2:#e3b625;
-  --fabric:#1a1a1a;
-  --fabric-2:#242424;
-  --rail:#0c0c0c;
+  --fabric:#4a4a4c;
+  --fabric-2:#3a3a3c;
+  --rail:#2a2a2c;
+  --shelf:#c5c5c7;
+  --shelf-2:#b4b4b6;
+  --wall:#beb8ac;
   --display:"Syne","Avenir Next","Segoe UI",sans-serif;
   --body:"Manrope","Segoe UI",system-ui,sans-serif;
 }
@@ -18,7 +21,7 @@ body{
   font-family:var(--body);
   font-size:17px;line-height:1.55;
   color:var(--paper);
-  background:#0e0e0e;
+  background:#2a2a2c;
   -webkit-font-smoothing:antialiased;
 }
 body.intro-lock{overflow:hidden;height:100%;}
@@ -34,7 +37,7 @@ a:hover{color:#f0d36a}
 /* ---- Intro (video, then hands off to the shelves) ---- */
 .intro{
   position:fixed;inset:0;z-index:50;
-  background:#fff;
+  background:var(--wall);
   display:grid;place-items:center;
   overflow:hidden;
 }
@@ -42,7 +45,7 @@ a:hover{color:#f0d36a}
   width:100%;height:100%;
   max-width:none;max-height:none;
   object-fit:contain;
-  background:#fff;
+  background:var(--wall);
   transform:scale(1);
   transform-origin:center center;
 }
@@ -101,17 +104,17 @@ a:hover{color:#f0d36a}
 .sep-body{
   position:absolute;inset:18% 6% 18% 6%;
   background:
-    radial-gradient(120% 80% at 50% 0%, #2a2a2a, transparent 55%),
-    linear-gradient(#1a1a1a,#0b0b0b 40%,#151515);
+    radial-gradient(120% 80% at 50% 0%, #5a5a5c, transparent 55%),
+    linear-gradient(#3a3a3c,#2a2a2c 40%,#333336);
   border-radius:0 0 50% 50% / 0 0 28px 28px;
-  box-shadow:0 16px 28px rgba(0,0,0,.55), inset 0 8px 16px rgba(255,255,255,.04);
+  box-shadow:0 16px 28px rgba(0,0,0,.45), inset 0 8px 16px rgba(255,255,255,.05);
 }
 .sep-front{
   position:absolute;left:8%;right:8%;bottom:0;
   height:42%;
-  background:radial-gradient(80% 100% at 50% 0%, #3a3a3a, #111 70%);
+  background:radial-gradient(80% 100% at 50% 0%, #d4d4d6, var(--shelf-2) 70%);
   border-radius:50% 50% 0 0 / 100% 100% 0 0;
-  box-shadow:0 -8px 16px rgba(0,0,0,.4);
+  box-shadow:0 -8px 16px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.28);
 }
 .sep-label{
   position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
@@ -125,8 +128,8 @@ a:hover{color:#f0d36a}
   position:relative;
   min-height:100svh;
   background:
-    linear-gradient(to bottom, rgba(0,0,0,.45), transparent 18%, transparent 78%, rgba(0,0,0,.5)),
-    linear-gradient(to right, rgba(0,0,0,.55), transparent 16%, transparent 84%, rgba(0,0,0,.55)),
+    linear-gradient(to bottom, rgba(0,0,0,.28), transparent 16%, transparent 78%, rgba(0,0,0,.28)),
+    linear-gradient(to right, rgba(0,0,0,.32), transparent 18%, transparent 82%, rgba(0,0,0,.32)),
     var(--fabric);
   overflow:hidden;
 }
@@ -136,28 +139,28 @@ a:hover{color:#f0d36a}
 }
 .side-l{
   left:0;
-  background:linear-gradient(to right, #080808 0%, #1c1c1c 62%, transparent 100%);
-  box-shadow:inset -18px 0 28px rgba(0,0,0,.35);
+  background:linear-gradient(to right, #2a2a2c 0%, #3f3f41 62%, transparent 100%);
+  box-shadow:inset -18px 0 28px rgba(0,0,0,.28);
   transform-origin:left center;
   transform:perspective(700px) rotateY(18deg);
 }
 .side-r{
   right:0;
-  background:linear-gradient(to left, #080808 0%, #1c1c1c 62%, transparent 100%);
-  box-shadow:inset 18px 0 28px rgba(0,0,0,.35);
+  background:linear-gradient(to left, #2a2a2c 0%, #3f3f41 62%, transparent 100%);
+  box-shadow:inset 18px 0 28px rgba(0,0,0,.28);
   transform-origin:right center;
   transform:perspective(700px) rotateY(-18deg);
 }
 .ceiling{
   position:absolute;left:0;right:0;top:0;height:72px;z-index:4;pointer-events:none;
-  background:linear-gradient(#070707, #1a1a1a 70%, transparent);
-  box-shadow:0 16px 28px rgba(0,0,0,.35);
+  background:linear-gradient(#2a2a2c, #3a3a3c 70%, transparent);
+  box-shadow:0 16px 28px rgba(0,0,0,.28);
 }
 .floor{
   position:absolute;left:8%;right:8%;bottom:-8px;height:110px;z-index:4;pointer-events:none;
-  background:radial-gradient(90% 80% at 50% 0%, #2c2c2c, #0d0d0d 70%);
+  background:radial-gradient(90% 80% at 50% 0%, #d4d4d6, var(--shelf-2) 70%);
   border-radius:50% 50% 0 0 / 70px 70px 0 0;
-  box-shadow:0 -10px 26px rgba(0,0,0,.4);
+  box-shadow:0 -10px 26px rgba(0,0,0,.3), inset 0 2px 0 rgba(255,255,255,.22);
 }
 .inner{
   position:relative;z-index:5;
