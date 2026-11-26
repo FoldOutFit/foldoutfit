@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fold-Out-Fit | A bag that unfolds into a closet</title>
+<meta name="description" content="Fold-Out-Fit is the patent-pending bag that hooks on a stall or locker hook and unfolds into three shelves, so your clothes stay off the floor while you change. Join the launch waitlist.">
+<link rel="canonical" href="https://foldoutfit.com/">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#c9c3b7">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fold-Out-Fit">
+<meta property="og:title" content="Fold-Out-Fit | A bag that unfolds into a closet">
+<meta property="og:description" content="Hook it on a stall or locker hook. Three shelves drop down, and your clothes stay off the floor while you change.">
+<meta property="og:url" content="https://foldoutfit.com/style2/">
+<meta property="og:image" content="https://foldoutfit.com/hero.jpg">
+<meta property="og:image:alt" content="Fold-Out-Fit unfolded into a three-shelf organizer on a stall hook">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../style1/img/intro-poster.jpg">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="intro-lock">
+<a class="skip" href="#shelf1">Skip to content</a>
+
+<div class="intro" id="intro">
+  <video id="introVid" muted playsinline webkit-playsinline preload="auto" poster="../style1/img/intro-poster.jpg" aria-label="Animation of Fold-Out-Fit unfolding from a bag into a three-shelf organizer on a wall"></video>
+  <div class="intro-ui">
+    <div class="intro-progress" aria-hidden="true"><span id="introBar"></span></div>
+    <button type="button" class="skip-intro" id="skipIntro">Skip intro <span aria-hidden="true">→</span></button>
+  </div>
+</div>
+
+<header class="bar" id="bar">
+  <div class="bar-inner">
+    <a class="logo" href="https://foldoutfit.com/" aria-label="Fold-Out-Fit home">
+      <svg viewBox="0 0 20 32" aria-hidden="true" focusable="false">
+        <rect x="7" y="0" width="6" height="3" rx="0.6" fill="currentColor"/>
+        <rect x="9" y="2.5" width="2" height="6" fill="currentColor"/>
+        <path d="M10 8.5c5 0 7 4 7 7.2C17 20.8 13.6 24 9.2 24 6.2 24 4 22.4 4 20c0-1.5 1-2.6 2.5-2.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <span>Fold-Out-Fit</span>
+    </a>
+    <nav class="tabs" id="shelfTabs" aria-label="Shelves">
+      <span class="tab-pill" id="tabPill" aria-hidden="true"></span>
+      <a href="#shelf1" data-n="1" aria-current="true"><span class="tab-n">01</span>The Basics</a>
+      <a href="#shelf2" data-n="2"><span class="tab-n">02</span>The Details</a>
+      <a href="#shelf3" data-n="3"><span class="tab-n">03</span>The Future</a>
+    </nav>
+    <a class="bar-cta" href="#waitlist">Join the waitlist</a>
+  </div>
+  <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+</header>
+
+<main>
+  <!-- ============ SHELF 1 ============ -->
+  <section class="shelf" id="shelf1" data-n="1" aria-labelledby="t1">
+    <div class="lip" aria-hidden="true"><div class="lip-face"></div></div>
+    <div class="wrap">
+      <header class="shelf-head reveal">
+        <p class="eyebrow"><span class="mono">Shelf 01</span> The Basics</p>
+        <h1 id="t1" class="display">A bag that unfolds<br class="br-lg"> into a closet.</h1>
+        <ul class="chips" aria-label="At a glance">
+          <li>Three hanging shelves</li>
+          <li>Hangs on a stall or locker hook that’s already there</li>
+          <li>Keeps your clothes, shoes, and gear off the floor while you change</li>
+        </ul>
+      </header>
+
+      <figure class="film reveal">
+        <div class="film-media">
+          <video id="unfoldVid" muted loop playsinline webkit-playsinline preload="none" poster="img/unfold-poster.jpg" aria-label="Animation of Fold-Out-Fit unfolding from a bag into a three-shelf organizer">
+            <source src="../unfold.mp4" type="video/mp4">
+          </video>
+          <button type="button" class="film-toggle" id="filmToggle" aria-label="Pause animation" aria-pressed="false">
+            <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+            <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+          </button>
+        </div>
+        <figcaption>Fold-Out-Fit unfolding from a bag into three shelves.</figcaption>
+      </figure>
+
+      <div class="problem">
+        <div class="problem-intro reveal">
+          <p class="eyebrow">The problem</p>
+          <h2 class="h2">The balancing act.</h2>
+          <p class="lede">Public restrooms and locker rooms almost never give you a clean surface to change on. So everyone improvises.</p>
+        </div>
+        <ol class="pains">
+          <li class="reveal">
+            <span class="num" aria-hidden="true">01</span>
+            <h3>Awkwardly holding clean clothes</h3>
+            <p>Keeping clean clothing separate and managed is a struggle with nowhere to put it.</p>
+          </li>
+          <li class="reveal">
+            <span class="num" aria-hidden="true">02</span>
+            <h3>Balancing on one foot</h3>
+            <p>Avoiding dirty surfaces forces uncomfortable postures every time you change.</p>
+          </li>
+          <li class="reveal">
+            <span class="num" aria-hidden="true">03</span>
+            <h3>Bags that don’t help</h3>
+            <p>Standard bags get messy fast, mixing clean clothes in with dirty items.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="audience-block">
+        <div class="center-head reveal">
+          <p class="eyebrow">Who it’s for</p>
+          <h2 class="h2">Anyone who changes away from home.</h2>
+        </div>
+        <ul class="cards cards-3">
+          <li class="card reveal">
+            <svg class="card-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M6.5 9.8V15c0 1.6 2.5 3 5.5 3s5.5-1.4 5.5-3V9.8"/></svg>
+            <h3>Students &amp; athletes</h3>
+            <p>Swimmers, runners, football players and theater kids who change in locker rooms and restrooms and need something fast and hygienic.</p>
+          </li>
+          <li class="card reveal">
+            <svg class="card-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4M21 10v4M6 7v10M18 7v10M6 12h12"/></svg>
+            <h3>Gym-goers</h3>
+            <p>Before work, after work, or between classes. Change quickly without setting your clean clothes on a wet bench or locker-room floor.</p>
+          </li>
+          <li class="card reveal">
+            <svg class="card-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 13.5L3 11l1.5-1.5 7 1 4-4.5c.8-.8 2.2-.8 3 0s.8 2.2 0 3l-4.5 4 1 7L13.5 21 11 13.5"/></svg>
+            <h3>Travelers</h3>
+            <p>Commuters, truck drivers and frequent travelers who pay for showers on the road and need a clean place to change.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SHELF 2 ============ -->
+  <section class="shelf" id="shelf2" data-n="2" aria-labelledby="t2">
+    <div class="lip" aria-hidden="true"><div class="lip-face"></div></div>
+    <div class="wrap">
+      <header class="shelf-head reveal">
+        <p class="eyebrow"><span class="mono">Shelf 02</span> The Details</p>
+        <h2 id="t2" class="display">Hang it, let it drop open, and change.</h2>
+        <p class="lede center">Zipped up, it is about 16 by 11.5 inches, so it carries like a regular bag to practice, the gym, or a commute.</p>
+      </header>
+
+      <ol class="steps">
+        <li class="step reveal">
+          <div class="step-media"><img src="../folded.jpg" width="1050" height="1400" loading="lazy" decoding="async" alt="Fold-Out-Fit zipped closed as a compact gray bag hanging on a wall hook"></div>
+          <div class="step-body"><span class="num">Step 1</span><p>Carry it closed, like any other bag.</p></div>
+        </li>
+        <li class="step reveal">
+          <div class="step-media"><img src="../side.jpg" width="1050" height="1400" loading="lazy" decoding="async" alt="Side view of Fold-Out-Fit on a stall hook with its shelves folded down"></div>
+          <div class="step-body"><span class="num">Step 2</span><p>Hang it on a stall or locker hook and let the shelves fold down.</p></div>
+        </li>
+        <li class="step reveal">
+          <div class="step-media"><img src="../hero.jpg" width="1050" height="1400" loading="lazy" decoding="async" alt="Front view of Fold-Out-Fit fully open with three shelves on a restroom stall door"></div>
+          <div class="step-body"><span class="num">Step 3</span><p>Change. Each shelf holds something, off the floor. Then zip it back up.</p></div>
+        </li>
+      </ol>
+
+      <div class="build">
+        <div class="build-copy reveal">
+          <p class="eyebrow">How it’s built</p>
+          <h2 class="h2">Built to hang and hold its shape.</h2>
+          <p class="lede">It has a stable back and a hinge at the top, so it hangs and holds its shape. It hooks on a standard stall hanger.</p>
+          <dl class="specs">
+            <div><dt>Closed size</dt><dd>About 16 × 11.5 in</dd></div>
+            <div><dt>Hangs on</dt><dd>A standard stall or locker hook</dd></div>
+            <div><dt>Shelves</dt><dd>Three, for folded clothes</dd></div>
+            <div><dt>Hygiene First</dt><dd>A removable insert at the bottom, so socks are not sitting on the tile</dd></div>
+            <div><dt>Shoes</dt><dd>A separate spot, away from clean clothes</dd></div>
+            <div><dt>Hinge</dt><dd>3D-printed, so the fabric middle section can fold</dd></div>
+            <div><dt>Logo</dt><dd>Fold-Out-Fit embroidered on the front. For a school or team order, your logo can be embroidered too, at no extra charge.</dd></div>
+          </dl>
+        </div>
+        <div class="plate reveal">
+          <button type="button" id="drawOpen" class="plate-btn" aria-haspopup="dialog" aria-label="Enlarge the patent drawings">
+            <img src="../drawings.png" width="1360" height="1760" loading="lazy" decoding="async" alt="Patent drawings of the Fold-Out-Fit bag and unfolding three-shelf system, figures 1 through 6">
+            <span class="plate-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="patent reveal">
+        <div>
+          <p class="eyebrow">The patent</p>
+          <p class="patent-lede">The structure, the hook, the shelves, and the hygiene insert are covered by a pending U.S. provisional patent, filed November 1, 2026.</p>
+          <p class="muted">More of the engineering is at <a class="link" href="https://foldoutfit.info">foldoutfit.info</a>.</p>
+        </div>
+        <div class="patent-card">
+          <span class="mono">U.S. Prov. App. No.</span>
+          <strong>64/189,208</strong>
+          <span class="patent-meta">Filed Nov 1, 2026 <i aria-hidden="true">·</i> Patent pending</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SHELF 3 ============ -->
+  <section class="shelf" id="shelf3" data-n="3" aria-labelledby="t3">
+    <div class="lip" aria-hidden="true"><div class="lip-face"></div></div>
+    <div class="wrap">
+      <header class="shelf-head reveal">
+        <p class="eyebrow"><span class="mono">Shelf 03</span> The Future</p>
+        <h2 id="t3" class="display">Priced like a gym bag.</h2>
+        <p class="notice"><span class="dot" aria-hidden="true"></span>Not on sale yet. These are planned prices.</p>
+      </header>
+
+      <div class="prices">
+        <article class="price reveal">
+          <p class="price-k">For one bag</p>
+          <p class="amt">$50</p>
+          <p>For personal use: the full three-shelf bag, the removable Hygiene First insert, a shoe compartment, and the embroidered Fold-Out-Fit logo.</p>
+        </article>
+        <article class="price price-feature reveal">
+          <p class="price-k">Each, in bulk</p>
+          <p class="amt">$25</p>
+          <p>For schools and teams. Everything in the individual bag, plus your school or team logo embroidered, and high-volume ordering.</p>
+        </article>
+      </div>
+      <p class="price-note reveal">A regular gym bag is usually about $30 to $50, and the plan is to stay in that range. That’s the plan, not a price that can be charged today.</p>
+
+      <div class="join" id="waitlist">
+        <div class="join-copy reveal">
+          <p class="eyebrow">Waitlist</p>
+          <h2 class="h2">Join the list.</h2>
+          <p class="lede">Leave your name and email, and you’ll hear when Fold-Out-Fit is available. You can also use this form if you’d like to invest, collaborate, or have the product presented somewhere.</p>
+          <div class="who">
+            <p class="who-name">Warren Tyler Daisey</p>
+            <p class="who-role">Founder, Fold-Out-Fit</p>
+            <p class="contact">
+              <a href="tel:+13653688348">(365) 368-8348</a>
+              <a href="mailto:warren@foldoutfit.com">warren@foldoutfit.com</a>
+            </p>
+          </div>
+        </div>
+        <form class="form reveal" id="fofForm" action="https://formspree.io/f/xbggprba" method="POST" novalidate>
+          <label class="field" for="interest"><span>I’m writing because</span>
+            <span class="select">
+              <select name="interest" id="interest">
+                <option value="Notify me at launch" selected>I want an email when it’s ready</option>
+                <option value="Potential investor">I’m interested as an investor</option>
+                <option value="Collaborator">I want to collaborate</option>
+                <option value="Presentation request">I’d like a presentation</option>
+              </select>
+            </span>
+          </label>
+          <div class="row">
+            <label class="field" for="name"><span>Name</span><input type="text" id="name" name="name" autocomplete="name" required></label>
+            <label class="field" for="email"><span>Email</span><input type="email" id="email" name="email" autocomplete="email" inputmode="email" required></label>
+          </div>
+          <div class="row">
+            <label class="field" for="phone"><span>Phone <em>(optional)</em></span><input type="tel" id="phone" name="phone" autocomplete="tel"></label>
+            <label class="field opt" id="orgField" for="organization"><span>Organization</span><input type="text" id="organization" name="organization" autocomplete="organization"></label>
+          </div>
+          <label class="field opt" id="msgField" for="msg"><span>Message</span><textarea name="message" id="msg" rows="4"></textarea></label>
+          <input type="hidden" name="_subject" id="subj" value="Fold-Out-Fit: Notify me at launch">
+          <label class="hp" aria-hidden="true">Leave blank<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+          <button type="submit" class="btn" id="fofBtn">Join the waitlist</button>
+          <div class="status" id="fofStatus" role="status" aria-live="polite"></div>
+          <p class="fine">This information will only be used to contact you about Fold-Out-Fit.</p>
+        </form>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <div class="wrap foot-inner">
+        <div class="foot-brand">
+          <p class="foot-logo">Fold-Out-Fit</p>
+          <p class="legal">© 2026 Fold-Out-Fit · Patent pending (U.S. Prov. App. No. 64/189,208, filed Nov 1, 2026)</p>
+          <p class="legal">Made by <a href="https://warrendaisey.com">Warren Daisey</a>.</p>
+        </div>
+        <nav class="social" aria-label="Social">
+          <a href="https://www.instagram.com/fold_out_fit/" rel="noopener" target="_blank">Instagram</a>
+          <a href="https://www.tiktok.com/@foldoutfit" rel="noopener" target="_blank">TikTok</a>
+          <a href="https://www.youtube.com/channel/UC7hKK4NZ58CgP8QDi2SP3aA" rel="noopener" target="_blank">YouTube</a>
+          <a href="https://www.facebook.com/profile.php?id=61595972588469" rel="noopener" target="_blank">Facebook</a>
+          <a href="https://www.linkedin.com/company/foldoutfit/" rel="noopener" target="_blank">LinkedIn</a>
+          <a href="https://x.com/Fold_Out_Fit" rel="noopener" target="_blank">X</a>
+        </nav>
+      </div>
+    </footer>
+  </section>
+</main>
+
+<dialog class="lightbox" id="lb" aria-label="Patent drawings">
+  <form method="dialog"><button class="lb-close" aria-label="Close">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button></form>
+  <img src="../drawings.png" width="1360" height="1760" alt="Patent drawings of the Fold-Out-Fit bag and unfolding three-shelf system, figures 1 through 6" loading="lazy">
+</dialog>
+
+<script src="script.js" defer></script>
+</body>
+</html>
